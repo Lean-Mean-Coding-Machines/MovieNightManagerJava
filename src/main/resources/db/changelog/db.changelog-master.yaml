@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changeset/user-table.sql
+  - include:
+      file: db/changelog/changeset/movienightsegment-table.sql
+  - include:
+      file: db/changelog/changeset/nomination-table.sql
+  - include:
+      file: db/changelog/changeset/nomination-like-table.sql
