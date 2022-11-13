@@ -17,6 +17,14 @@ public class MnmApiResponse {
         return new MnmApiResponse(data, true, 200, "");
     }
 
+    public static MnmApiResponse created(Object data) {
+        return new MnmApiResponse(data, true, 201, "");
+    }
+
+    public static MnmApiResponse failed(String message) {
+        return new MnmApiResponse(null, false, 400, message);
+    }
+
     public static MnmApiResponse notFound() {
         return new MnmApiResponse(null, false, 404, "Data could not be found");
     }

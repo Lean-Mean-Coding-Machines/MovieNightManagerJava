@@ -4,3 +4,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/mnm_db
     username: user1
     password: password123
+  security:
+    user:
+      name: user
+      password: password123
