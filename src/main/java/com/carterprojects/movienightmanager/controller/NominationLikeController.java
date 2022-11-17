@@ -45,4 +45,13 @@ public class NominationLikeController {
         }
         return MnmApiResponse.created(NominationsMapper.nominationLikeToNominationLikeDto(newNominationLike));
     }
+
+    @PutMapping("change")
+    public MnmApiResponse changeNominationLike(@RequestBody NominationLikeRequest likeRequest) {
+        var chaNomintationLike = nominationServiceImpl.changeNominationLikeFromRequest(likeRequest);
+        if (chaNominationLike == null) {
+            return MnmApiResponse.failed("Couldn't change nomination like");
+        }
+        return MnmApiResponse.changed(NominationsMapper.nominationLikeToNominationLikeDto(chaNomintationLike));
+    }
 }
