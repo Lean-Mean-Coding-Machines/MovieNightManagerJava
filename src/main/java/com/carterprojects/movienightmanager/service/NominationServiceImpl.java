@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -25,7 +26,7 @@ public class NominationServiceImpl implements NominationService {
 
     public List<Nomination> getAllNominationsByCurrentSegment() {
         var currentSegment = movieNightSegmentServiceImpl.getCurrentMovieNightSegment();
-        return nominationRepository.findAllByMovieNightSegment_Id(currentSegment.getId());
+        return currentSegment.map(seg -> nominationRepository.findAllByMovieNightSegment_Id(seg.getId())).orElse(Collections.emptyList());
     }
 
     public List<Nomination> getAllNominationsByUserId(Integer userID) {
@@ -39,12 +40,18 @@ public class NominationServiceImpl implements NominationService {
             return null;
         }
 
-        var currentSegment = movieNightSegmentServiceImpl.getCurrentMovieNightSegment();
+        var currentSegment = movieNightSegmentServiceImpl.getMovieNightSegmentById(nominationRequest.getSegmentId());
+
+        // TODO :: Implement error handling system
+        if (currentSegment.isEmpty()) {
+            log.error("Could not create nomination because segment with id: {} was not found", nominationRequest.getSegmentId());
+            return Nomination.builder().build();
+        }
 
         var newNomination = Nomination.builder()
                 .movieTitle(nominationRequest.getMovieTitle())
                 .chosen(false)
-                .movieNightSegment(currentSegment)
+                .movieNightSegment(currentSegment.get())
                 .user(user.get())
                 .build();
 

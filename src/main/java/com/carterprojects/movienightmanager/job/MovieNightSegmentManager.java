@@ -20,10 +20,15 @@ public class MovieNightSegmentManager {
     public void CheckForNewSegment() {
         var utcNow = DateUtil.getDateTimeUtc();
         var currentSegment = movieNightSegmentServiceImpl.getCurrentMovieNightSegment();
-        if (currentSegment == null) {
-            movieNightSegmentServiceImpl.saveNewMovieNightSegment(LocalDateTime.now());
-        } else if (utcNow.isAfter(currentSegment.getNominationLockDate()) && utcNow.isBefore(currentSegment.getSegmentEndDate())) {
-            movieNightSegmentServiceImpl.saveNewMovieNightSegment(currentSegment.getSegmentEndDate());
-        }
+        currentSegment.ifPresentOrElse(
+                seg -> {
+                    if (utcNow.isAfter(seg.getNominationLockDate()) && utcNow.isBefore(seg.getSegmentEndDate())) {
+                        movieNightSegmentServiceImpl.saveNewMovieNightSegment(seg.getSegmentEndDate());
+                    }
+                },
+                () -> {
+                    movieNightSegmentServiceImpl.saveNewMovieNightSegment(LocalDateTime.now());
+                }
+        );
     }
 }

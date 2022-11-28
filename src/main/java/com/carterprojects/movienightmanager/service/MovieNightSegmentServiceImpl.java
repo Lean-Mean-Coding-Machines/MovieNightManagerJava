@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class MovieNightSegmentServiceImpl implements MovieNightSegmentService {
@@ -15,8 +16,12 @@ public class MovieNightSegmentServiceImpl implements MovieNightSegmentService {
     @Autowired
     MovieNightSegmentRepository movieNightSegmentRepository;
 
-    public MovieNightSegment getCurrentMovieNightSegment() {
+    public Optional<MovieNightSegment> getCurrentMovieNightSegment() {
         return movieNightSegmentRepository.getMovieNightSegmentByDate(DateUtil.getDateTimeUtc());
+    }
+
+    public Optional<MovieNightSegment> getMovieNightSegmentById(Integer id) {
+        return movieNightSegmentRepository.findById(id);
     }
 
     public MovieNightSegment saveNewMovieNightSegment(LocalDateTime segmentStart) {

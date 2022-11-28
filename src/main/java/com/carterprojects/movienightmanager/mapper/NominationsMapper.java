@@ -14,6 +14,7 @@ public class NominationsMapper {
                 .id(nomination.getId())
                 .movieTitle(nomination.getMovieTitle())
                 .chosen(nomination.getChosen())
+                .submittedBy(nomination.getUser().getUsername())
                 .build();
     }
 
@@ -22,6 +23,7 @@ public class NominationsMapper {
         nomWithLikes.setId(nomination.getId());
         nomWithLikes.setChosen(nomination.getChosen());
         nomWithLikes.setMovieTitle(nomination.getMovieTitle());
+        nomWithLikes.setSubmittedBy(nomination.getUser().getUsername());
         nomWithLikes.setNominationLikes(
                 nomination.getNominationLikes()
                         .stream()

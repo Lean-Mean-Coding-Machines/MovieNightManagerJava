@@ -5,6 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class NominationRequest {
+    Integer segmentId;
     String movieTitle;
     WatchType watchType;
     String watchDate;

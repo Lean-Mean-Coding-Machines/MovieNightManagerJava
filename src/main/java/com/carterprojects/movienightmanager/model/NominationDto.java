@@ -16,6 +16,7 @@ public class NominationDto {
     Integer id;
     String movieTitle;
     Boolean chosen;
+    String submittedBy;
 
     @Data
     @NoArgsConstructor

@@ -1,5 +1,6 @@
 package com.carterprojects.movienightmanager.controller;
 
+import com.carterprojects.movienightmanager.mapper.MovieNightSegmentMapper;
 import com.carterprojects.movienightmanager.model.MnmApiResponse;
 import com.carterprojects.movienightmanager.service.MovieNightSegmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,9 @@ public class MovieNightSegmentController {
 
     @GetMapping("current")
     public MnmApiResponse getCurrentMovieNightSegment() {
-        var currentSegment = movieNightSegmentServiceImpl.getCurrentMovieNightSegment();
-        if (currentSegment == null) {
-            return MnmApiResponse.notFound();
-        }
-        return MnmApiResponse.success(currentSegment);
+        return movieNightSegmentServiceImpl
+                .getCurrentMovieNightSegment()
+                .map(segment -> MnmApiResponse.success(MovieNightSegmentMapper.segmentToSegmentDto(segment)))
+                .orElse(MnmApiResponse.notFound());
     }
-
 }
