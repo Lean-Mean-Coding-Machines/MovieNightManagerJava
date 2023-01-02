@@ -9,6 +9,8 @@ import com.carterprojects.movienightmanager.service.NominationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.stream.Collectors;
 
 @RestController
@@ -37,9 +39,15 @@ public class NominationLikeController {
         );
     }
 
-    @PostMapping("create")
-    public MnmApiResponse createNominationLike(@RequestBody NominationLikeRequest likeRequest) {
-        var newNominationLike = nominationServiceImpl.createNominationLikeFromRequest(likeRequest);
+    @PostMapping("manage")
+    public MnmApiResponse manageNominationLikeByRequest(@RequestBody NominationLikeRequest likeRequest) {
+        if (likeRequest.getUserId() == null) {
+            return MnmApiResponse.failed("userId is required.");
+        }
+        if (likeRequest.getNominationId() == null) {
+            return MnmApiResponse.failed("nominationId is required.");
+        }
+        var newNominationLike = nominationServiceImpl.manageNominationLikeFromRequest(likeRequest);
         if (newNominationLike == null) {
             return MnmApiResponse.failed("Couldn't create nomination like. Check logs for details.");
         }
