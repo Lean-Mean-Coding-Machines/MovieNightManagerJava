@@ -13,5 +13,5 @@ public interface NominationLikeService {
     List<NominationLike> getAllNominationLikesByUserId(Integer userId);
     List<NominationLike> getAllNominationLikesByNominationId(Integer nominationId);
     NominationLike createNominationLike(Nomination nomination, AppUser user, WatchType watchType, LocalDateTime watchDate);
-    NominationLike createNominationLikeFromRequest(NominationLikeRequest likeRequest);
+    NominationLike manageNominationLikeFromRequest(NominationLikeRequest likeRequest);
 }

@@ -38,7 +38,8 @@ public class NominationLikeServiceImpl implements NominationLikeService {
     }
 
     @Override
-    public NominationLike createNominationLike(Nomination nomination, AppUser user, WatchType watchType, LocalDateTime watchDate) {
+    public NominationLike createNominationLike(Nomination nomination, AppUser user, WatchType watchType,
+            LocalDateTime watchDate) {
         var nominationLike = NominationLike.builder()
                 .preferredWatchType(watchType)
                 .preferredWatchDate(watchDate)
@@ -51,7 +52,7 @@ public class NominationLikeServiceImpl implements NominationLikeService {
     }
 
     @Override
-    public NominationLike createNominationLikeFromRequest(NominationLikeRequest likeRequest) {
+    public NominationLike manageNominationLikeFromRequest(NominationLikeRequest likeRequest) {
         var user = appUserRepository.findById(likeRequest.getUserId());
         if (user.isEmpty()) {
             log.error("Could create nomination like because user with id: {} was not found", likeRequest.getUserId());
@@ -60,18 +61,30 @@ public class NominationLikeServiceImpl implements NominationLikeService {
 
         var nomination = nominationRepository.findById(likeRequest.getNominationId());
         if (nomination.isEmpty()) {
-            log.error("Could create nomination like because nomination with id: {} was not found", likeRequest.getNominationId());
+            log.error("Could create nomination like because nomination with id: {} was not found",
+                    likeRequest.getNominationId());
             return null;
         }
 
-        var nominationLike = NominationLike.builder()
-                .preferredWatchType(likeRequest.getWatchType())
-                .preferredWatchDate(LocalDateTime.parse(likeRequest.getWatchDate()))
-                .enabled(true)
-                .user(user.get())
-                .nomination(nomination.get())
-                .build();
-
-        return nominationLikeRepository.save(nominationLike);
+        var nominationLike = nominationLikeRepository.findByNomination_IdAndUser_Id(likeRequest.getNominationId(),
+                likeRequest.getUserId());
+        NominationLike nominationLikeObj = null;
+        if (nominationLike.isEmpty()) {
+            nominationLikeObj = NominationLike.builder()
+                    .preferredWatchType(likeRequest.getWatchType())
+                    .preferredWatchDate(LocalDateTime.parse(likeRequest.getWatchDate()))
+                    .enabled(true)
+                    .user(user.get())
+                    .nomination(nomination.get())
+                    .build();
+        } else {
+            nominationLikeObj = nominationLike.get();
+            nominationLikeObj.setEnabled(!nominationLikeObj.getEnabled());
+            if (nominationLikeObj.getEnabled()) {
+                nominationLikeObj.setPreferredWatchType(likeRequest.getWatchType());
+                nominationLikeObj.setPreferredWatchDate(LocalDateTime.parse(likeRequest.getWatchDate()));
+            }
+        }
+        return nominationLikeRepository.save(nominationLikeObj);
     }
 }
