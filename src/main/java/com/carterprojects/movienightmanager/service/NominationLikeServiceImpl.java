@@ -1,5 +1,6 @@
 package com.carterprojects.movienightmanager.service;
 
+import com.carterprojects.movienightmanager.exception.MnmAppException;
 import com.carterprojects.movienightmanager.model.NominationLikeRequest;
 import com.carterprojects.movienightmanager.repository.AppUserRepository;
 import com.carterprojects.movienightmanager.repository.NominationLikeRepository;
@@ -52,39 +53,38 @@ public class NominationLikeServiceImpl implements NominationLikeService {
     }
 
     @Override
-    public NominationLike manageNominationLikeFromRequest(NominationLikeRequest likeRequest) {
-        var user = appUserRepository.findById(likeRequest.getUserId());
-        if (user.isEmpty()) {
+    public NominationLike manageNominationLikeFromRequest(NominationLikeRequest likeRequest) throws MnmAppException {
+        var user = appUserRepository.findById(likeRequest.getUserId())
+        .orElseThrow(() -> {
             log.error("Could create nomination like because user with id: {} was not found", likeRequest.getUserId());
-            return null;
-        }
+            return new MnmAppException("Could create nomination like because user was not found"); 
+        });
 
-        var nomination = nominationRepository.findById(likeRequest.getNominationId());
-        if (nomination.isEmpty()) {
-            log.error("Could create nomination like because nomination with id: {} was not found",
-                    likeRequest.getNominationId());
-            return null;
-        }
+        var nomination = nominationRepository.findById(likeRequest.getNominationId())
+        .orElseThrow(() -> {
+            log.error("Could create nomination like because nomination with id: {} was not found", likeRequest.getNominationId());
+            return new MnmAppException("Could create nomination like because the nomination was not found"); 
+        });
 
-        var nominationLike = nominationLikeRepository.findByNomination_IdAndUser_Id(likeRequest.getNominationId(),
-                likeRequest.getUserId());
-        NominationLike nominationLikeObj = null;
-        if (nominationLike.isEmpty()) {
-            nominationLikeObj = NominationLike.builder()
-                    .preferredWatchType(likeRequest.getWatchType())
-                    .preferredWatchDate(LocalDateTime.parse(likeRequest.getWatchDate()))
-                    .enabled(true)
-                    .user(user.get())
-                    .nomination(nomination.get())
-                    .build();
-        } else {
-            nominationLikeObj = nominationLike.get();
-            nominationLikeObj.setEnabled(!nominationLikeObj.getEnabled());
-            if (nominationLikeObj.getEnabled()) {
-                nominationLikeObj.setPreferredWatchType(likeRequest.getWatchType());
-                nominationLikeObj.setPreferredWatchDate(LocalDateTime.parse(likeRequest.getWatchDate()));
+        var nominationLike = nominationLikeRepository.findByNomination_IdAndUser_Id(likeRequest.getNominationId(), likeRequest.getUserId())
+        .map(nomLike -> {
+            nomLike.setEnabled(!nomLike.getEnabled());
+            if (nomLike.getEnabled()) {
+                nomLike.setPreferredWatchType(likeRequest.getWatchType());
+                nomLike.setPreferredWatchDate(LocalDateTime.parse(likeRequest.getWatchDate()));
             }
-        }
-        return nominationLikeRepository.save(nominationLikeObj);
+            return nomLike;
+        })
+        .orElseGet(() -> {
+            return NominationLike.builder()
+            .preferredWatchType(likeRequest.getWatchType())
+            .preferredWatchDate(LocalDateTime.parse(likeRequest.getWatchDate()))
+            .enabled(true)
+            .user(user)
+            .nomination(nomination)
+            .build();
+        });
+        
+        return nominationLikeRepository.save(nominationLike);
     }
 }

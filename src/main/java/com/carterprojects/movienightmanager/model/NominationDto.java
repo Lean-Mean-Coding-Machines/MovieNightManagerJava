@@ -3,6 +3,7 @@ package com.carterprojects.movienightmanager.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class NominationDto {
 
     @Data
     @NoArgsConstructor
+    @EqualsAndHashCode(callSuper=false)
     public static class NominationWithLikesDto extends NominationDto {
         List<NominationLikeDto> nominationLikes;
     }

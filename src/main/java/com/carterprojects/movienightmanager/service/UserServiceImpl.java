@@ -1,5 +1,6 @@
 package com.carterprojects.movienightmanager.service;
 
+import com.carterprojects.movienightmanager.exception.MnmAppException;
 import com.carterprojects.movienightmanager.model.UserCreateRequest;
 import com.carterprojects.movienightmanager.repository.AppUserRepository;
 import com.carterprojects.movienightmanager.repository.UserRole;
@@ -20,15 +21,14 @@ public class UserServiceImpl implements UserService {
         return appUserRepository.findAll();
     }
 
-    public AppUser createUserFromRequest(UserCreateRequest createRequest) {
+    public AppUser createUserFromRequest(UserCreateRequest createRequest) throws MnmAppException {
         var existingUser = appUserRepository.findAppUserByEmailOrUsername(createRequest.getEmail(), createRequest.getUsername());
         if (existingUser.isPresent()) {
             if (existingUser.get().getEmail().equalsIgnoreCase(createRequest.getEmail())) {
-                log.error("A user with this email already exists");
+                throw new MnmAppException("A user with this email already exists");
             } else {
-                log.error("A user with this username already exists");
+                throw new MnmAppException("A user with this username already exists");
             }
-            return null;
         }
 
         var newUser =

@@ -1,5 +1,6 @@
 package com.carterprojects.movienightmanager.controller;
 
+import com.carterprojects.movienightmanager.exception.MnmAppException;
 import com.carterprojects.movienightmanager.mapper.NominationsMapper;
 import com.carterprojects.movienightmanager.model.MnmApiResponse;
 import com.carterprojects.movienightmanager.model.NominationRequest;
@@ -36,7 +37,7 @@ public class NominationController {
     }
 
     @PostMapping("create")
-    public MnmApiResponse createNomination(@RequestBody NominationRequest nominationRequest) {
+    public MnmApiResponse createNomination(@RequestBody NominationRequest nominationRequest) throws MnmAppException {
         var newNomination = nominationServiceImpl.createNominationFromRequest(nominationRequest);
         if (newNomination == null) {
             return MnmApiResponse.failed("Couldn't create nomination. Check logs for details.");
