@@ -1,16 +1,13 @@
 package com.carterprojects.movienightmanager.controller;
 
+import com.carterprojects.movienightmanager.exception.MnmAppException;
 import com.carterprojects.movienightmanager.mapper.NominationsMapper;
 import com.carterprojects.movienightmanager.model.MnmApiResponse;
 import com.carterprojects.movienightmanager.model.NominationLikeRequest;
-import com.carterprojects.movienightmanager.model.NominationRequest;
 import com.carterprojects.movienightmanager.service.NominationLikeService;
-import com.carterprojects.movienightmanager.service.NominationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.stream.Collectors;
 
 @RestController
@@ -40,7 +37,7 @@ public class NominationLikeController {
     }
 
     @PostMapping("manage")
-    public MnmApiResponse manageNominationLikeByRequest(@RequestBody NominationLikeRequest likeRequest) {
+    public MnmApiResponse manageNominationLikeByRequest(@RequestBody NominationLikeRequest likeRequest) throws MnmAppException {
         if (likeRequest.getUserId() == null) {
             return MnmApiResponse.failed("userId is required.");
         }

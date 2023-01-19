@@ -1,5 +1,6 @@
 package com.carterprojects.movienightmanager.service;
 
+import com.carterprojects.movienightmanager.exception.MnmAppException;
 import com.carterprojects.movienightmanager.model.NominationRequest;
 import com.carterprojects.movienightmanager.repository.AppUserRepository;
 import com.carterprojects.movienightmanager.repository.NominationRepository;
@@ -33,26 +34,28 @@ public class NominationServiceImpl implements NominationService {
         return nominationRepository.findAllByUser_Id(userID);
     }
 
-    public Nomination createNominationFromRequest(NominationRequest nominationRequest) {
-        var user = appUserRepository.findById(nominationRequest.getUserId());
-        if (user.isEmpty()) {
-            log.error("Could create nomination because user with id: {} was not found", nominationRequest.getUserId());
-            return null;
-        }
+    public Nomination createNominationFromRequest(NominationRequest nominationRequest) throws MnmAppException {
+        var user = appUserRepository.findById(nominationRequest.getUserId())
+        .orElseThrow(
+            () -> {
+                log.error("Could create nomination because user with id: {} was not found", nominationRequest.getUserId());
+                return new MnmAppException("Could create nomination because the user was not found");
+            }
+        );
 
-        var currentSegment = movieNightSegmentServiceImpl.getMovieNightSegmentById(nominationRequest.getSegmentId());
-
-        // TODO :: Implement error handling system
-        if (currentSegment.isEmpty()) {
-            log.error("Could not create nomination because segment with id: {} was not found", nominationRequest.getSegmentId());
-            return Nomination.builder().build();
-        }
+        var currentSegment = movieNightSegmentServiceImpl.getMovieNightSegmentById(nominationRequest.getSegmentId())
+        .orElseThrow(
+            () -> {
+                log.error("Could not create nomination because segment with id: {} was not found", nominationRequest.getSegmentId());
+                return new MnmAppException("Could not create nomination because the segment was not found");
+            }
+        );
 
         var newNomination = Nomination.builder()
                 .movieTitle(nominationRequest.getMovieTitle())
                 .chosen(false)
-                .movieNightSegment(currentSegment.get())
-                .user(user.get())
+                .movieNightSegment(currentSegment)
+                .user(user)
                 .build();
 
         newNomination = nominationRepository.save(newNomination);
@@ -60,7 +63,7 @@ public class NominationServiceImpl implements NominationService {
         var nominationLike =
                 nominationLikeServiceImpl.createNominationLike(
                         newNomination,
-                        user.get(),
+                        user,
                         nominationRequest.getWatchType(),
                         LocalDateTime.parse(nominationRequest.getWatchDate())
                 );
