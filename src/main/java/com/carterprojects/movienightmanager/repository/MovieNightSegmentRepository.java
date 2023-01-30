@@ -12,5 +12,5 @@ import java.util.Optional;
 @Repository
 public interface MovieNightSegmentRepository extends CrudRepository<MovieNightSegment, Integer> {
     @Query("select seg from MovieNightSegment seg where seg.nominationStartDate <= :date and seg.nominationLockDate >= :date")
-    Optional<MovieNightSegment> getMovieNightSegmentByDate(@Param("date") LocalDateTime date);
+    Optional<MovieNightSegment> getMovieNightSegmentByDateTime(@Param("date") LocalDateTime date);
 }
