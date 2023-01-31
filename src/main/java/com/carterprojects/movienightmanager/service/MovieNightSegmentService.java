@@ -8,7 +8,11 @@ import java.util.Optional;
 public interface MovieNightSegmentService {
 
     Optional<MovieNightSegment> getCurrentMovieNightSegment();
+
+    Optional<MovieNightSegment> getPreviousMovieNightSegments();
+
     Optional<MovieNightSegment> getMovieNightSegmentById(Integer id);
+
     MovieNightSegment saveNewMovieNightSegment(LocalDateTime segmentStart);
 
 }

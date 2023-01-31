@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/v1/segment")
 public class MovieNightSegmentController {
@@ -20,5 +22,14 @@ public class MovieNightSegmentController {
                 .getCurrentMovieNightSegment()
                 .map(segment -> MnmApiResponse.success(MovieNightSegmentMapper.segmentToSegmentDto(segment)))
                 .orElse(MnmApiResponse.notFound());
+    }
+
+    @GetMapping("previous")
+    public MnmApiResponse getPreviousMovieNightSegments() {
+        return MnmApiResponse.success(
+                movieNightSegmentServiceImpl.getPreviousMovieNightSegments()
+                        .stream()
+                        .map(MovieNightSegmentMapper::segmentToSegmentDto)
+                        .collect(Collectors.toList()));
     }
 }
