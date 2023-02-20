@@ -7,6 +7,7 @@ import com.carterprojects.movienightmanager.repository.UserRole;
 import com.carterprojects.movienightmanager.repository.models.AppUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,9 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     AppUserRepository appUserRepository;
+    
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
 
     public List<AppUser> getAllUsers() {
         return appUserRepository.findAll();
@@ -38,7 +42,7 @@ public class UserServiceImpl implements UserService {
                         .firstName(createRequest.getFirstName())
                         .lastName(createRequest.getLastName())
                         .username(createRequest.getUsername())
-                        .password(createRequest.getPassword())
+                        .password(passwordEncoder.encode(createRequest.getPassword()))
                         .build();
 
         return appUserRepository.save(newUser);

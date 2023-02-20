@@ -8,3 +8,13 @@ spring:
     user:
       name: user
       password: password123
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: movie-night-manager
+            authorization-grant-type: authorization_code
+            scope: openid
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:28080/auth/realms/master
