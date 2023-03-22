@@ -1,14 +1,11 @@
 package com.carterprojects.movienightmanager.service;
 
 import com.carterprojects.movienightmanager.constant.MovieNightSegmentConstants;
-import com.carterprojects.movienightmanager.mapper.MovieNightSegmentMapper;
-import com.carterprojects.movienightmanager.model.MnmApiResponse;
 import com.carterprojects.movienightmanager.repository.MovieNightSegmentRepository;
 import com.carterprojects.movienightmanager.repository.models.MovieNightSegment;
 import com.carterprojects.movienightmanager.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
