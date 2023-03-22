@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.List;
 
 @Repository
 public interface MovieNightSegmentRepository extends CrudRepository<MovieNightSegment, Integer> {
@@ -16,4 +17,8 @@ public interface MovieNightSegmentRepository extends CrudRepository<MovieNightSe
 
     @Query("select seg from MovieNightSegment seg")
     Optional<MovieNightSegment> getMovieNightSegments();
+
+    @Query("select seg from MovieNightSegment seg where seg.movie_night_segment_id >= :lowest_id and seg.movie_night_segment_id < :current_id")
+    List<MovieNightSegment> getPreviousMovieNightSegments(@Param("lowest_id") Integer lowest_id,
+            @Param("current_id") Integer current_id);
 }

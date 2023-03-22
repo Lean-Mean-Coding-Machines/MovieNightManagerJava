@@ -1,6 +1,8 @@
 package com.carterprojects.movienightmanager.service;
 
 import com.carterprojects.movienightmanager.constant.MovieNightSegmentConstants;
+import com.carterprojects.movienightmanager.mapper.MovieNightSegmentMapper;
+import com.carterprojects.movienightmanager.model.MnmApiResponse;
 import com.carterprojects.movienightmanager.repository.MovieNightSegmentRepository;
 import com.carterprojects.movienightmanager.repository.models.MovieNightSegment;
 import com.carterprojects.movienightmanager.util.DateUtil;
@@ -10,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.List;
 
 @Service
 public class MovieNightSegmentServiceImpl implements MovieNightSegmentService {
-
     @Autowired
     MovieNightSegmentRepository movieNightSegmentRepository;
 
@@ -25,10 +27,10 @@ public class MovieNightSegmentServiceImpl implements MovieNightSegmentService {
         return movieNightSegmentRepository.findById(id);
     }
 
-    public Optional<MovieNightSegment> getPreviousMovieNightSegments() {
-        // @RequestParam(defaultValue = "3") String numSegments) {
+    public List<MovieNightSegment> getPreviousMovieNightSegments(Integer currentID, Integer numSegments) {
+        // Subtract numSegments from current segment to get id of first segment in list
 
-        return movieNightSegmentRepository.getMovieNightSegments();
+        return movieNightSegmentRepository.getPreviousMovieNightSegments(currentID - numSegments, currentID);
     }
 
     public MovieNightSegment saveNewMovieNightSegment(LocalDateTime segmentStart) {
