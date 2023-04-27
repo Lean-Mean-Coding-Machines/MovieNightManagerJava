@@ -28,7 +28,7 @@ public class MovieNightSegmentController {
 
     @GetMapping("previous/{currentID}")
     public MnmApiResponse getPreviousMovieNightSegments(@PathVariable Integer currentID,
-            @RequestParam(name = "numSegments", defaultValue = "3") Integer numSegments) {
+                                                        @RequestParam(name = "numSegments", defaultValue = "3") Integer numSegments) {
         return MnmApiResponse.success(
                 movieNightSegmentServiceImpl.getPreviousMovieNightSegments(currentID, numSegments)
                         .stream()
