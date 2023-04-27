@@ -22,7 +22,8 @@ public class UserServiceImpl implements UserService {
     }
 
     public AppUser createUserFromRequest(UserCreateRequest createRequest) throws MnmAppException {
-        var existingUser = appUserRepository.findAppUserByEmailOrUsername(createRequest.getEmail(), createRequest.getUsername());
+        var existingUser = appUserRepository.findAppUserByEmailOrUsername(createRequest.getEmail(),
+                createRequest.getUsername());
         if (existingUser.isPresent()) {
             if (existingUser.get().getEmail().equalsIgnoreCase(createRequest.getEmail())) {
                 throw new MnmAppException("A user with this email already exists");
@@ -31,15 +32,14 @@ public class UserServiceImpl implements UserService {
             }
         }
 
-        var newUser =
-                AppUser.builder()
-                        .userRole(UserRole.USER)
-                        .email(createRequest.getEmail())
-                        .firstName(createRequest.getFirstName())
-                        .lastName(createRequest.getLastName())
-                        .username(createRequest.getUsername())
-                        .password(createRequest.getPassword())
-                        .build();
+        var newUser = AppUser.builder()
+                .userRole(UserRole.USER)
+                .email(createRequest.getEmail())
+                .firstName(createRequest.getFirstName())
+                .lastName(createRequest.getLastName())
+                .username(createRequest.getUsername())
+                .password(createRequest.getPassword())
+                .build();
 
         return appUserRepository.save(newUser);
     }
