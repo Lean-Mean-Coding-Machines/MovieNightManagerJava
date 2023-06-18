@@ -9,20 +9,3 @@ services:
       POSTGRES_USER: user1
       POSTGRES_PASSWORD: password123
       POSTGRES_DB: mnm_db
-  keycloak:
-    container_name: mnm-keycloak
-    image: docker.io/bitnami/keycloak:latest
-    ports:
-      - "28080:8080"
-    environment:
-      KEYCLOAK_CREATE_ADMIN_USER: "true"
-      KEYCLOAK_ADMIN_USER: "admin1"
-      KEYCLOAK_ADMIN_PASSWORD: "password123"
-      KEYCLOAK_MANAGEMENT_USER: "manager1"
-      KEYCLOAK_MANAGEMENT_PASSWORD: "password123"
-      KEYCLOAK_DATABASE_PORT: 5432
-      KEYCLOAK_DATABASE_NAME: "mnm_db"
-      KEYCLOAK_DATABASE_USER: "user1"
-      KEYCLOAK_DATABASE_PASSWORD: "password123"
-    depends_on:
-      - postgresql

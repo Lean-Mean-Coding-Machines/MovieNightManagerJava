@@ -2,24 +2,33 @@ package com.carterprojects.movienightmanager.service;
 
 import com.carterprojects.movienightmanager.exception.MnmAppException;
 import com.carterprojects.movienightmanager.model.UserCreateRequest;
+import com.carterprojects.movienightmanager.model.UserCredentials;
 import com.carterprojects.movienightmanager.repository.AppUserRepository;
-import com.carterprojects.movienightmanager.repository.UserRole;
-import com.carterprojects.movienightmanager.repository.models.AppUser;
+import com.carterprojects.movienightmanager.repository.models.user.UserRole;
+import com.carterprojects.movienightmanager.repository.models.user.AppUser;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
-public class UserServiceImpl implements UserService {
-    @Autowired
+@AllArgsConstructor
+public class UserServiceImpl implements UserService, UserDetailsService {
     AppUserRepository appUserRepository;
-    
-    @Autowired
-    BCryptPasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoder;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return appUserRepository.findAppUserDetailsByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User with username: " + username + " not found"));
+    }
 
     public List<AppUser> getAllUsers() {
         return appUserRepository.findAll();
@@ -46,5 +55,10 @@ public class UserServiceImpl implements UserService {
                         .build();
 
         return appUserRepository.save(newUser);
+    }
+
+    @Override
+    public Optional<AppUser> getUserByCredentials(UserCredentials creds) {
+        return appUserRepository.findAppUserByUsername(creds.getUsername());
     }
 }

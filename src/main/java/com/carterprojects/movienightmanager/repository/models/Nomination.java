@@ -1,5 +1,6 @@
 package com.carterprojects.movienightmanager.repository.models;
 
+import com.carterprojects.movienightmanager.repository.models.user.AppUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,14 +25,14 @@ public class Nomination {
 
     Boolean chosen;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "movie_night_segment_id", nullable = false)
     MovieNightSegment movieNightSegment;
 
     @OneToMany(mappedBy = "nomination")
     List<NominationLike> nominationLikes;
 
-    @ManyToOne
-    @JoinColumn(name = "app_user_id", nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "app_user_id",  referencedColumnName = "user_id", nullable = false)
     AppUser user;
 }

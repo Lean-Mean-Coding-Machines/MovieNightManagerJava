@@ -1,5 +1,6 @@
 package com.carterprojects.movienightmanager.repository.models;
 
+import com.carterprojects.movienightmanager.repository.models.user.AppUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,11 +29,11 @@ public class NominationLike {
     @Column(name = "prefer_watch_date_time")
     LocalDateTime preferredWatchDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "nomination_id", nullable = false)
     Nomination nomination;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "app_user_id", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "app_user_id", referencedColumnName = "user_id", nullable = false)
     AppUser user;
 }
