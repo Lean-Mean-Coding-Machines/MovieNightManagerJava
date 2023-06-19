@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.List;
 
 @Service
 public class MovieNightSegmentServiceImpl implements MovieNightSegmentService {
-
     @Autowired
     MovieNightSegmentRepository movieNightSegmentRepository;
 
@@ -24,15 +24,20 @@ public class MovieNightSegmentServiceImpl implements MovieNightSegmentService {
         return movieNightSegmentRepository.findById(id);
     }
 
+    public List<MovieNightSegment> getPreviousMovieNightSegments(Integer currentID, Integer numSegments) {
+        // Subtract numSegments from current segment to get id of first segment in list
+
+        return movieNightSegmentRepository.getPreviousMovieNightSegments(currentID - numSegments, currentID);
+    }
+
     public MovieNightSegment saveNewMovieNightSegment(LocalDateTime segmentStart) {
-        var newSegment =
-                MovieNightSegment.builder()
-                        .nominationStartDate(segmentStart)
-                        .nominationLockDate(segmentStart.plusDays(MovieNightSegmentConstants.NOMINATION_DURATION_DAYS))
-                        .segmentEndDate(segmentStart.plusDays(MovieNightSegmentConstants.SEGMENT_DURATION_DAYS))
-                        .chosenWatchDate(null)
-                        .watchType(null)
-                        .build();
+        var newSegment = MovieNightSegment.builder()
+                .nominationStartDate(segmentStart)
+                .nominationLockDate(segmentStart.plusDays(MovieNightSegmentConstants.NOMINATION_DURATION_DAYS))
+                .segmentEndDate(segmentStart.plusDays(MovieNightSegmentConstants.SEGMENT_DURATION_DAYS))
+                .chosenWatchDate(null)
+                .watchType(null)
+                .build();
 
         return movieNightSegmentRepository.save(newSegment);
     }
