@@ -1,5 +1,6 @@
 package com.carterprojects.movienightmanager.controller;
 
+import com.carterprojects.movienightmanager.controller.security.Authorize;
 import com.carterprojects.movienightmanager.controller.security.JwtService;
 import com.carterprojects.movienightmanager.exception.MnmAppException;
 import com.carterprojects.movienightmanager.model.MnmApiResponse;
@@ -23,7 +24,7 @@ public class UserController {
     JwtService jwtService;
     AuthenticationManager authenticationManager;
 
-    @PostMapping("/authenticate")
+    @PostMapping("authenticate")
     public MnmApiResponse loginUser(@RequestBody UserCredentials creds) {
         if (creds.getUsername() == null || creds.getPassword() == null) {
             return MnmApiResponse.failed("Username or Password is empty");
@@ -45,6 +46,7 @@ public class UserController {
                 .orElse(MnmApiResponse.failed("Username or Password is invalid"));
     }
 
+    @Authorize
     @GetMapping("all")
     public List<AppUser> getUsers() {
         return userServiceImpl.getAllUsers();
