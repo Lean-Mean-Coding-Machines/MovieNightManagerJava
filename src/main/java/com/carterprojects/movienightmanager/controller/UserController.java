@@ -3,6 +3,8 @@ package com.carterprojects.movienightmanager.controller;
 import com.carterprojects.movienightmanager.controller.security.Authorize;
 import com.carterprojects.movienightmanager.controller.security.JwtService;
 import com.carterprojects.movienightmanager.exception.MnmAppException;
+import com.carterprojects.movienightmanager.mapper.AppUserMapper;
+import com.carterprojects.movienightmanager.model.AppUserDto;
 import com.carterprojects.movienightmanager.model.MnmApiResponse;
 import com.carterprojects.movienightmanager.model.UserCreateRequest;
 import com.carterprojects.movienightmanager.model.UserCredentials;
@@ -15,6 +17,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -48,8 +52,13 @@ public class UserController {
 
     @Authorize
     @GetMapping("all")
-    public List<AppUser> getUsers() {
-        return userServiceImpl.getAllUsers().stream().map();
+    public MnmApiResponse getUsers() {
+        return MnmApiResponse.success(
+                userServiceImpl.getAllUsers()
+                        .stream()
+                        .map(AppUserMapper::appUserToDto)
+                        .collect(Collectors.toList())
+        );
     }
 
     @PostMapping(path = "create", consumes = "application/json", produces = "application/json")
