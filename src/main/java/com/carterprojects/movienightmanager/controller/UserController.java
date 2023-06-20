@@ -49,7 +49,7 @@ public class UserController {
     @Authorize
     @GetMapping("all")
     public List<AppUser> getUsers() {
-        return userServiceImpl.getAllUsers();
+        return userServiceImpl.getAllUsers().stream().map();
     }
 
     @PostMapping(path = "create", consumes = "application/json", produces = "application/json")
