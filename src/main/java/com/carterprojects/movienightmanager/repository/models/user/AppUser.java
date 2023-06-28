@@ -2,7 +2,6 @@ package com.carterprojects.movienightmanager.repository.models.user;
 
 import com.carterprojects.movienightmanager.repository.models.Nomination;
 import com.carterprojects.movienightmanager.repository.models.NominationLike;
-import com.carterprojects.movienightmanager.repository.models.token.Token;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

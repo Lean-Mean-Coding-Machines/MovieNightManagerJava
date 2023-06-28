@@ -46,7 +46,7 @@ public class UserController {
         }
 
         return userServiceImpl.getUserByCredentials(creds)
-                .map(user -> MnmApiResponse.success(jwtService.generateToken(user)))
+                .map(user -> MnmApiResponse.success(AppUserMapper.appUserToAuthResponse(user, jwtService.generateToken(user))))
                 .orElse(MnmApiResponse.failed("Username or Password is invalid"));
     }
 
