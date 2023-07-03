@@ -12,4 +12,5 @@ public interface UserService {
     AppUser createUserFromRequest(UserCreateRequest createRequest) throws MnmAppException;
     List<AppUser> getAllUsers();
     Optional<AppUser> getUserByCredentials(UserCredentials creds);
+    Optional<AppUser> getUserById(Integer userId);
 }
