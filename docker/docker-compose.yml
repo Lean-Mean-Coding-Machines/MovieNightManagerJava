@@ -1,8 +1,8 @@
 version: '3'
 services:
-  db:
+  postgresql:
     container_name: mnm-db
-    image: 'postgres:latest'
+    image: docker.io/bitnami/postgresql:latest
     ports:
       - 5432:5432
     environment:

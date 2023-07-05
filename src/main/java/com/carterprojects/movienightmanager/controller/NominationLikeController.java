@@ -1,5 +1,6 @@
 package com.carterprojects.movienightmanager.controller;
 
+import com.carterprojects.movienightmanager.controller.security.Authorize;
 import com.carterprojects.movienightmanager.exception.MnmAppException;
 import com.carterprojects.movienightmanager.mapper.NominationsMapper;
 import com.carterprojects.movienightmanager.model.MnmApiResponse;
@@ -16,6 +17,7 @@ public class NominationLikeController {
     @Autowired
     NominationLikeService nominationServiceImpl;
 
+    @Authorize
     @GetMapping("user/{userId}")
     public MnmApiResponse getNominationLikesByUserId(@PathVariable Integer userId) {
         return MnmApiResponse.success(
@@ -26,6 +28,7 @@ public class NominationLikeController {
         );
     }
 
+    @Authorize
     @GetMapping("nomination/{nominationId}")
     public MnmApiResponse getNominationLikesByNominationId(@PathVariable Integer nominationId) {
         return MnmApiResponse.success(
@@ -36,6 +39,7 @@ public class NominationLikeController {
         );
     }
 
+    @Authorize
     @PostMapping("manage")
     public MnmApiResponse manageNominationLikeByRequest(@RequestBody NominationLikeRequest likeRequest) throws MnmAppException {
         if (likeRequest.getUserId() == null) {

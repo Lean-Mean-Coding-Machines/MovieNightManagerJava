@@ -4,7 +4,9 @@ spring:
     url: jdbc:postgresql://localhost:5432/mnm_db
     username: user1
     password: password123
-  security:
-    user:
-      name: user
-      password: password123
+
+security:
+  jwt:
+
+
+    secret-key: zcgQoXuOPM2fuU6bnrFs4tftmdnpTs2Y6gvMjY4IgHQf8fsf3aZ75/J8VdDM5SLx9hOKjK/bLADT+T+NwcZsazrhwKj8wyeK6DdlEuoOM6cpKd1GCZ68865MPLNMNjIaAK4POzRhFWFeLpQqHmsDOk4UNIMJ1uG+7s+2WiyzQQs3MXmWT/GVpbutP5VhqzxCNpVNZannfRZy1yMdotUK3oazj2U9C00ls22K8vZ+RgfW99j/J5APEvZH5qbyse/qo+tCJlg3tNNx0HXHxWhVcv8491o5apTGY6rWuXEz1ond10GB/DBHJlbIMkObbr5i0Izof9ZC4C0pdtZF46xfxb6I5mvcgq6XE5yJ35CJMTM=

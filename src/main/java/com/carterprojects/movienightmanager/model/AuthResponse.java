@@ -1,7 +1,5 @@
 package com.carterprojects.movienightmanager.model;
 
-
-import com.carterprojects.movienightmanager.repository.models.user.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,11 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AppUserDto {
-    Integer id;
-    UserRole userRole;
-    String firstName;
-    String lastName;
+public class AuthResponse {
+    String token;
     String username;
-    String email; 
+    Integer userId;
 }

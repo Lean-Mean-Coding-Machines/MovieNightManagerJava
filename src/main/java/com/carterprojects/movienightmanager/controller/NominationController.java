@@ -1,5 +1,6 @@
 package com.carterprojects.movienightmanager.controller;
 
+import com.carterprojects.movienightmanager.controller.security.Authorize;
 import com.carterprojects.movienightmanager.exception.MnmAppException;
 import com.carterprojects.movienightmanager.mapper.NominationsMapper;
 import com.carterprojects.movienightmanager.model.MnmApiResponse;
@@ -26,6 +27,7 @@ public class NominationController {
         );
     }
 
+    @Authorize
     @GetMapping("user/{userId}")
     public MnmApiResponse getNominationsByUserId(@PathVariable Integer userId) {
         return MnmApiResponse.success(
@@ -36,6 +38,7 @@ public class NominationController {
         );
     }
 
+    @Authorize
     @PostMapping("create")
     public MnmApiResponse createNomination(@RequestBody NominationRequest nominationRequest) throws MnmAppException {
         var newNomination = nominationServiceImpl.createNominationFromRequest(nominationRequest);
