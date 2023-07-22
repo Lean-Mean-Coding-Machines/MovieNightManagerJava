@@ -61,4 +61,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public Optional<AppUser> getUserByCredentials(UserCredentials creds) {
         return appUserRepository.findAppUserByUsername(creds.getUsername());
     }
+
+    @Override
+    public Optional<AppUser> getUserById(Integer userId) {
+        return appUserRepository.findById(userId);
+    }
 }

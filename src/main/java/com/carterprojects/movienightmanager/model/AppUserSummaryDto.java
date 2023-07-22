@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AppUserDto {
+public class AppUserSummaryDto {
     Integer id;
     UserRole userRole;
     String firstName;
