@@ -9,6 +9,7 @@ import com.carterprojects.movienightmanager.model.UserCreateRequest;
 import com.carterprojects.movienightmanager.model.UserCredentials;
 import com.carterprojects.movienightmanager.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -38,10 +39,18 @@ public class UserController {
                     )
             );
         } catch (AuthenticationException ex) {
-            return MnmApiResponse.failed("Could not authenticate user");
+            return MnmApiResponse.failed("Could not authenticate user", HttpStatus.UNAUTHORIZED);
         }
 
         return userServiceImpl.getUserByCredentials(creds)
+                .map(user -> MnmApiResponse.success(AppUserMapper.appUserToAuthResponse(user, jwtService.generateToken(user))))
+                .orElse(MnmApiResponse.failed("Username or Password is invalid"));
+    }
+
+    @Authorize
+    @PostMapping("token/refresh/{userId}")
+    public MnmApiResponse refreshUser(@PathVariable Integer userId) {
+        return userServiceImpl.getUserById(userId)
                 .map(user -> MnmApiResponse.success(AppUserMapper.appUserToAuthResponse(user, jwtService.generateToken(user))))
                 .orElse(MnmApiResponse.failed("Username or Password is invalid"));
     }

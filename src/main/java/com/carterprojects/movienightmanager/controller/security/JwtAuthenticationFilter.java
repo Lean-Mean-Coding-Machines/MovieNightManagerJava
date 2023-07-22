@@ -31,7 +31,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        if(authHeader == null || !authHeader.startsWith("Bearer ")){
+        if(authHeader == null || !authHeader.trim().startsWith("Bearer")){
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
@@ -40,7 +40,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final var username = jwtServiceImpl.extractUsername(token);
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             var userDetails = userServiceImpl.loadUserByUsername(username);
-            if (jwtServiceImpl.isTokenValid(token, userDetails)) {
+            var isRefreshRequest = servletRequest.getRequestURI().contains("token/refresh");
+            if (jwtServiceImpl.isTokenValid(token, userDetails) || isRefreshRequest) {
                 var authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authToken.setDetails(
                         new WebAuthenticationDetailsSource().buildDetails(servletRequest)

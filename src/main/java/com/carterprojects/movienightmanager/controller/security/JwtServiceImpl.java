@@ -1,6 +1,7 @@
 package com.carterprojects.movienightmanager.controller.security;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -54,7 +55,12 @@ public class JwtServiceImpl implements JwtService {
     }
 
     private <T> T extractClaim(String token, Function<Claims, T> claimResolver) {
-        final Claims claims = extractAllClaims(token);
+        Claims claims;
+        try {
+            claims = extractAllClaims(token);
+        } catch (ExpiredJwtException ex) {
+            claims = ex.getClaims();
+        }
         return claimResolver.apply(claims);
     }
 

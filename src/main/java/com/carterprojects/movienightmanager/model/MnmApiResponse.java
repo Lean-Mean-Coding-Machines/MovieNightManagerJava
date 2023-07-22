@@ -2,6 +2,8 @@ package com.carterprojects.movienightmanager.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 
 @Getter
 public class MnmApiResponse {
@@ -22,6 +24,10 @@ public class MnmApiResponse {
     }
 
     public static MnmApiResponse failed(String message) {
+        return new MnmApiResponse(null, false, 400, message);
+    }
+
+    public static MnmApiResponse failed(String message, HttpStatus code) {
         return new MnmApiResponse(null, false, 400, message);
     }
 
