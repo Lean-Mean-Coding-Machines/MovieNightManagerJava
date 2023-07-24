@@ -1,8 +1,8 @@
 package com.carterprojects.movienightmanager.service;
 
 import com.carterprojects.movienightmanager.exception.MnmAppException;
-import com.carterprojects.movienightmanager.model.UserCreateRequest;
-import com.carterprojects.movienightmanager.model.UserCredentials;
+import com.carterprojects.movienightmanager.model.user.UserCreateRequest;
+import com.carterprojects.movienightmanager.model.user.UserCredentials;
 import com.carterprojects.movienightmanager.repository.AppUserRepository;
 import com.carterprojects.movienightmanager.repository.models.user.UserRole;
 import com.carterprojects.movienightmanager.repository.models.user.AppUser;

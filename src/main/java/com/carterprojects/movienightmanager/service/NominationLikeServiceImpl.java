@@ -1,7 +1,7 @@
 package com.carterprojects.movienightmanager.service;
 
 import com.carterprojects.movienightmanager.exception.MnmAppException;
-import com.carterprojects.movienightmanager.model.NominationLikeRequest;
+import com.carterprojects.movienightmanager.model.nomination.NominationLikeRequest;
 import com.carterprojects.movienightmanager.repository.AppUserRepository;
 import com.carterprojects.movienightmanager.repository.NominationLikeRepository;
 import com.carterprojects.movienightmanager.repository.NominationRepository;

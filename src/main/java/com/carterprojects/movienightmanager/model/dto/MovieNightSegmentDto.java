@@ -1,5 +1,6 @@
-package com.carterprojects.movienightmanager.model;
+package com.carterprojects.movienightmanager.model.dto;
 
+import com.carterprojects.movienightmanager.model.nomination.NominationDto;
 import com.carterprojects.movienightmanager.repository.models.WatchType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

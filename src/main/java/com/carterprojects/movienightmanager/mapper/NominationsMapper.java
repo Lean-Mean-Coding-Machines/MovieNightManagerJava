@@ -1,7 +1,7 @@
 package com.carterprojects.movienightmanager.mapper;
 
-import com.carterprojects.movienightmanager.model.NominationDto;
-import com.carterprojects.movienightmanager.model.NominationLikeDto;
+import com.carterprojects.movienightmanager.model.nomination.NominationDto;
+import com.carterprojects.movienightmanager.model.nomination.NominationLikeDto;
 import com.carterprojects.movienightmanager.repository.models.Nomination;
 import com.carterprojects.movienightmanager.repository.models.NominationLike;
 
@@ -15,6 +15,7 @@ public class NominationsMapper {
                 .movieTitle(nomination.getMovieTitle())
                 .chosen(nomination.getChosen())
                 .submittedBy(nomination.getUser().getUsername())
+                .posterPath(nomination.getPosterPath())
                 .build();
     }
 
@@ -23,10 +24,12 @@ public class NominationsMapper {
         nomWithLikes.setId(nomination.getId());
         nomWithLikes.setChosen(nomination.getChosen());
         nomWithLikes.setMovieTitle(nomination.getMovieTitle());
+        nomWithLikes.setPosterPath(nomination.getPosterPath());
         nomWithLikes.setSubmittedBy(nomination.getUser().getUsername());
         nomWithLikes.setNominationLikes(
                 nomination.getNominationLikes()
                         .stream()
+                        .filter(NominationLike::getEnabled)
                         .map(NominationsMapper::nominationLikeToNominationLikeDto)
                         .collect(Collectors.toList())
         );
@@ -38,6 +41,8 @@ public class NominationsMapper {
         return NominationLikeDto.builder()
                 .id(nominationLike.getId())
                 .enabled(nominationLike.getEnabled())
+                .userId(nominationLike.getUser().getId())
+                .username(nominationLike.getUser().getUsername())
                 .preferredWatchDate(nominationLike.getPreferredWatchDate().toString())
                 .preferredWatchType(nominationLike.getPreferredWatchType().name())
                 .build();

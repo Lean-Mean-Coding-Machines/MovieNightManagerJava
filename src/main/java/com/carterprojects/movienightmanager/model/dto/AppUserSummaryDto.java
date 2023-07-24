@@ -1,4 +1,4 @@
-package com.carterprojects.movienightmanager.model;
+package com.carterprojects.movienightmanager.model.dto;
 
 
 import com.carterprojects.movienightmanager.repository.models.user.UserRole;

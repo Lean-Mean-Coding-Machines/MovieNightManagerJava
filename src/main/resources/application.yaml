@@ -7,6 +7,10 @@ spring:
 
 security:
   jwt:
-
-
     secret-key: zcgQoXuOPM2fuU6bnrFs4tftmdnpTs2Y6gvMjY4IgHQf8fsf3aZ75/J8VdDM5SLx9hOKjK/bLADT+T+NwcZsazrhwKj8wyeK6DdlEuoOM6cpKd1GCZ68865MPLNMNjIaAK4POzRhFWFeLpQqHmsDOk4UNIMJ1uG+7s+2WiyzQQs3MXmWT/GVpbutP5VhqzxCNpVNZannfRZy1yMdotUK3oazj2U9C00ls22K8vZ+RgfW99j/J5APEvZH5qbyse/qo+tCJlg3tNNx0HXHxWhVcv8491o5apTGY6rWuXEz1ond10GB/DBHJlbIMkObbr5i0Izof9ZC4C0pdtZF46xfxb6I5mvcgq6XE5yJ35CJMTM=
+
+tmdb:
+  api:
+    token: eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNTkxMWY0NmE5ZTNlY2Y4NDc5ZTI4ZWViMjIzYmEyZCIsInN1YiI6IjY0YmI2MjdkYWY4NWRlMDEwMDE4ZjNhMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TCHEd3LcNvvu-VXTH588MB77W0iQDAwRHbIIVA6A3yo
+    base-url: https://api.themoviedb.org/
+    movie-search-url: 3/search/movie
