@@ -1,7 +1,7 @@
 package com.carterprojects.movienightmanager.service;
 
 import com.carterprojects.movienightmanager.exception.MnmAppException;
-import com.carterprojects.movienightmanager.model.NominationRequest;
+import com.carterprojects.movienightmanager.model.nomination.NominationRequest;
 import com.carterprojects.movienightmanager.repository.AppUserRepository;
 import com.carterprojects.movienightmanager.repository.NominationRepository;
 import com.carterprojects.movienightmanager.repository.models.Nomination;
@@ -38,7 +38,7 @@ public class NominationServiceImpl implements NominationService {
         var user = appUserRepository.findById(nominationRequest.getUserId())
         .orElseThrow(
             () -> {
-                log.error("Could create nomination because user with id: {} was not found", nominationRequest.getUserId());
+                log.error("Could not create nomination because user with id: {} was not found", nominationRequest.getUserId());
                 return new MnmAppException("Could create nomination because the user was not found");
             }
         );
@@ -54,6 +54,7 @@ public class NominationServiceImpl implements NominationService {
         var newNomination = Nomination.builder()
                 .movieTitle(nominationRequest.getMovieTitle())
                 .chosen(false)
+                .posterPath(nominationRequest.getPosterPath())
                 .movieNightSegment(currentSegment)
                 .user(user)
                 .build();

@@ -1,4 +1,4 @@
-package com.carterprojects.movienightmanager.model;
+package com.carterprojects.movienightmanager.model.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

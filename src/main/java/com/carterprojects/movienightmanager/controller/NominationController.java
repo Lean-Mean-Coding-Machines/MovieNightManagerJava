@@ -4,7 +4,7 @@ import com.carterprojects.movienightmanager.controller.security.Authorize;
 import com.carterprojects.movienightmanager.exception.MnmAppException;
 import com.carterprojects.movienightmanager.mapper.NominationsMapper;
 import com.carterprojects.movienightmanager.model.MnmApiResponse;
-import com.carterprojects.movienightmanager.model.NominationRequest;
+import com.carterprojects.movienightmanager.model.nomination.NominationRequest;
 import com.carterprojects.movienightmanager.service.NominationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

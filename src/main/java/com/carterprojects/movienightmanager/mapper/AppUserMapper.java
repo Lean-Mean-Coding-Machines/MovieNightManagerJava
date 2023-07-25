@@ -1,8 +1,8 @@
 package com.carterprojects.movienightmanager.mapper;
 
-import com.carterprojects.movienightmanager.model.AppUserDetailsDto;
-import com.carterprojects.movienightmanager.model.AppUserSummaryDto;
-import com.carterprojects.movienightmanager.model.AuthResponse;
+import com.carterprojects.movienightmanager.model.dto.AppUserDetailsDto;
+import com.carterprojects.movienightmanager.model.dto.AppUserSummaryDto;
+import com.carterprojects.movienightmanager.model.user.AuthResponse;
 import com.carterprojects.movienightmanager.repository.models.Nomination;
 import com.carterprojects.movienightmanager.repository.models.user.AppUser;
 
