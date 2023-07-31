@@ -4,6 +4,21 @@ spring:
     url: jdbc:postgresql://localhost:5432/mnm_db
     username: user1
     password: password123
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: mnm.notification.noreply@gmail.com
+    password: mnm_admin01
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    admin:
+      email: mnm.notification.noreply@gmail.com
+
+
 
 security:
   jwt:
@@ -14,3 +29,4 @@ tmdb:
     token: eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNTkxMWY0NmE5ZTNlY2Y4NDc5ZTI4ZWViMjIzYmEyZCIsInN1YiI6IjY0YmI2MjdkYWY4NWRlMDEwMDE4ZjNhMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TCHEd3LcNvvu-VXTH588MB77W0iQDAwRHbIIVA6A3yo
     base-url: https://api.themoviedb.org/
     movie-search-url: 3/search/movie
+
