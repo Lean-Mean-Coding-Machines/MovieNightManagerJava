@@ -3,13 +3,16 @@ package com.carterprojects.movienightmanager.controller;
 import com.carterprojects.movienightmanager.controller.security.Authorize;
 import com.carterprojects.movienightmanager.controller.security.JwtService;
 import com.carterprojects.movienightmanager.exception.MnmAppException;
+import com.carterprojects.movienightmanager.exception.ValidationException;
 import com.carterprojects.movienightmanager.mapper.AppUserMapper;
 import com.carterprojects.movienightmanager.model.MnmApiResponse;
 import com.carterprojects.movienightmanager.model.user.UserCreateRequest;
 import com.carterprojects.movienightmanager.model.user.UserCredentials;
 import com.carterprojects.movienightmanager.service.UserService;
+import com.carterprojects.movienightmanager.validators.UserValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -26,7 +29,7 @@ public class UserController {
     AuthenticationManager authenticationManager;
 
     @PostMapping("authenticate")
-    public MnmApiResponse loginUser(@RequestBody UserCredentials creds) {
+    public ResponseEntity<MnmApiResponse> loginUser(@RequestBody UserCredentials creds) {
         if (creds.getUsername() == null || creds.getPassword() == null) {
             return MnmApiResponse.failed("Username or Password is empty");
         }
@@ -49,7 +52,7 @@ public class UserController {
 
     @Authorize
     @PostMapping("token/refresh/{userId}")
-    public MnmApiResponse refreshUser(@PathVariable Integer userId) {
+    public ResponseEntity<MnmApiResponse> refreshUser(@PathVariable Integer userId) {
         return userServiceImpl.getUserById(userId)
                 .map(user -> MnmApiResponse.success(AppUserMapper.appUserToAuthResponse(user, jwtService.generateToken(user))))
                 .orElse(MnmApiResponse.failed("Username or Password is invalid"));
@@ -57,7 +60,7 @@ public class UserController {
 
     @Authorize
     @GetMapping("all")
-    public MnmApiResponse getUsers() {
+    public ResponseEntity<MnmApiResponse> getUsers() {
         return MnmApiResponse.success(
                 userServiceImpl.getAllUsers()
                         .stream()
@@ -68,7 +71,7 @@ public class UserController {
 
     @Authorize
     @GetMapping("/details/{userId}")
-    public MnmApiResponse getUserDetails(@PathVariable Integer userId) {
+    public ResponseEntity<MnmApiResponse> getUserDetails(@PathVariable Integer userId) {
         return userServiceImpl
                 .getUserById(userId)
                 .map(user -> MnmApiResponse.success(AppUserMapper.appUserDetailsToDto(user)))
@@ -76,7 +79,8 @@ public class UserController {
     }
 
     @PostMapping(path = "create", consumes = "application/json", produces = "application/json")
-    public MnmApiResponse createUser(@RequestBody UserCreateRequest userCreateRequest) throws MnmAppException {
+    public ResponseEntity<MnmApiResponse> createUser(@RequestBody UserCreateRequest userCreateRequest) throws MnmAppException, ValidationException {
+        UserValidator.validateUserCreate(userCreateRequest);
         return MnmApiResponse.created(userServiceImpl.createUserFromRequest(userCreateRequest));
     }
 }
