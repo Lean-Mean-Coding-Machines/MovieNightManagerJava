@@ -40,7 +40,7 @@ public class NominationLikeServiceImpl implements NominationLikeService {
 
     @Override
     public NominationLike createNominationLike(Nomination nomination, AppUser user, WatchType watchType,
-            LocalDateTime watchDate) {
+                                               LocalDateTime watchDate) {
         var nominationLike = NominationLike.builder()
                 .preferredWatchType(watchType)
                 .preferredWatchDate(watchDate)
@@ -55,36 +55,35 @@ public class NominationLikeServiceImpl implements NominationLikeService {
     @Override
     public NominationLike manageNominationLikeFromRequest(NominationLikeRequest likeRequest) throws MnmAppException {
         var user = appUserRepository.findById(likeRequest.getUserId())
-        .orElseThrow(() -> {
-            log.error("Could create nomination like because user with id: {} was not found", likeRequest.getUserId());
-            return new MnmAppException("Could create nomination like because user was not found"); 
-        });
+                .orElseThrow(() -> {
+                    log.error("Could create nomination like because user with id: {} was not found", likeRequest.getUserId());
+                    return new MnmAppException("Could create nomination like because user was not found");
+                });
 
         var nomination = nominationRepository.findById(likeRequest.getNominationId())
-        .orElseThrow(() -> {
-            log.error("Could create nomination like because nomination with id: {} was not found", likeRequest.getNominationId());
-            return new MnmAppException("Could create nomination like because the nomination was not found"); 
-        });
+                .orElseThrow(() -> {
+                    log.error("Could create nomination like because nomination with id: {} was not found", likeRequest.getNominationId());
+                    return new MnmAppException("Could create nomination like because the nomination was not found");
+                });
 
         var nominationLike = nominationLikeRepository.findByNomination_IdAndUser_Id(likeRequest.getNominationId(), likeRequest.getUserId())
-        .map(nomLike -> {
-            nomLike.setEnabled(!nomLike.getEnabled());
-            if (nomLike.getEnabled()) {
-                nomLike.setPreferredWatchType(likeRequest.getWatchType());
-                nomLike.setPreferredWatchDate(LocalDateTime.parse(likeRequest.getWatchDate()));
-            }
-            return nomLike;
-        })
-        .orElseGet(() -> {
-            return NominationLike.builder()
-            .preferredWatchType(likeRequest.getWatchType())
-            .preferredWatchDate(LocalDateTime.parse(likeRequest.getWatchDate()))
-            .enabled(true)
-            .user(user)
-            .nomination(nomination)
-            .build();
-        });
-        
+                .map(nomLike -> {
+                    nomLike.setEnabled(!nomLike.getEnabled());
+                    if (nomLike.getEnabled()) {
+                        nomLike.setPreferredWatchType(likeRequest.getWatchType());
+                        nomLike.setPreferredWatchDate(LocalDateTime.parse(likeRequest.getWatchDate()));
+                    }
+                    return nomLike;
+                })
+                .orElseGet(() -> NominationLike.builder()
+                        .preferredWatchType(likeRequest.getWatchType())
+                        .preferredWatchDate(LocalDateTime.parse(likeRequest.getWatchDate()))
+                        .enabled(true)
+                        .user(user)
+                        .nomination(nomination)
+                        .build()
+                );
+
         return nominationLikeRepository.save(nominationLike);
     }
 }

@@ -9,6 +9,7 @@ import com.carterprojects.movienightmanager.service.NominationService;
 import com.carterprojects.movienightmanager.service.TmdbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.QueryParam;
@@ -22,7 +23,7 @@ public class TmdbController {
 
     @Authorize
     @GetMapping("/movie/search")
-    public MnmApiResponse searchForMovieByTitle(@QueryParam("title") String title) {
+    public ResponseEntity<MnmApiResponse> searchForMovieByTitle(@QueryParam("title") String title) {
         if (title == null || title.isEmpty()) {
             return MnmApiResponse.failed("Title cannot be empty", HttpStatus.BAD_REQUEST);
         }

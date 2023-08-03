@@ -4,42 +4,48 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 
 @Getter
 public class MnmApiResponse {
     Object data;
     Status status;
 
-    MnmApiResponse(Object data, boolean success, int code, String message) {
+    MnmApiResponse(Object data, boolean success, HttpStatus code, String message) {
         this.data = data;
         this.status = new Status(success, code, message);
     }
 
-    public static MnmApiResponse success(Object data) {
-        return new MnmApiResponse(data, true, 200, "");
+    public static ResponseEntity<MnmApiResponse> success(Object data) {
+        return  ResponseEntity.ok(new MnmApiResponse(data, true, HttpStatus.OK, ""));
     }
 
-    public static MnmApiResponse created(Object data) {
-        return new MnmApiResponse(data, true, 201, "");
+    public static ResponseEntity<MnmApiResponse> created(Object data) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(new MnmApiResponse(data, true, HttpStatus.CREATED, ""));
     }
 
-    public static MnmApiResponse failed(String message) {
-        return new MnmApiResponse(null, false, 400, message);
+    public static ResponseEntity<MnmApiResponse> failed(String message) {
+        return ResponseEntity.badRequest().body(new MnmApiResponse(null, false, HttpStatus.BAD_REQUEST, message));
     }
 
-    public static MnmApiResponse failed(String message, HttpStatus code) {
-        return new MnmApiResponse(null, false, 400, message);
+    public static ResponseEntity<MnmApiResponse> failed(String message, HttpStatus code) {
+        return ResponseEntity.status(code).body(new MnmApiResponse(null, false, code, message));
     }
 
-    public static MnmApiResponse notFound() {
-        return new MnmApiResponse(null, false, 404, "Data could not be found");
+    public static ResponseEntity<MnmApiResponse> notFound() {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MnmApiResponse(null, false, HttpStatus.NOT_FOUND, "Data could not be found"));
     }
 
     @Getter
-    @AllArgsConstructor
-    static class Status {
+    public static class Status {
         boolean success;
         int code;
         String message;
+
+        public Status(boolean success, HttpStatus code, String message) {
+            this.success = success;
+            this.code = code.value();
+            this.message = message;
+        }
     }
 }

@@ -4,6 +4,7 @@ import com.carterprojects.movienightmanager.mapper.MovieNightSegmentMapper;
 import com.carterprojects.movienightmanager.model.MnmApiResponse;
 import com.carterprojects.movienightmanager.service.MovieNightSegmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ public class MovieNightSegmentController {
     MovieNightSegmentService movieNightSegmentServiceImpl;
 
     @GetMapping("current")
-    public MnmApiResponse getCurrentMovieNightSegment() {
+    public ResponseEntity<MnmApiResponse> getCurrentMovieNightSegment() {
         return movieNightSegmentServiceImpl
                 .getCurrentMovieNightSegment()
                 .map(segment -> MnmApiResponse.success(MovieNightSegmentMapper.segmentToSegmentDto(segment)))
@@ -27,7 +28,7 @@ public class MovieNightSegmentController {
     }
 
     @GetMapping("previous/{currentID}")
-    public MnmApiResponse getPreviousMovieNightSegments(@PathVariable Integer currentID,
+    public ResponseEntity<MnmApiResponse> getPreviousMovieNightSegments(@PathVariable Integer currentID,
                                                         @RequestParam(name = "numSegments", defaultValue = "3") Integer numSegments) {
         return MnmApiResponse.success(
                 movieNightSegmentServiceImpl.getPreviousMovieNightSegments(currentID, numSegments)
