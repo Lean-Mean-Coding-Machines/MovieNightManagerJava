@@ -20,7 +20,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommunityUser {
-
     @EmbeddedId
     CommunityUserKey id;
 
@@ -34,10 +33,7 @@ public class CommunityUser {
     @JoinColumn(name = "community_id")
     Community community;
 
-    String community_role;
-
     @Column(name = "community_role")
     @Enumerated(EnumType.STRING)
     CommunityRole communityRole;
-
 }

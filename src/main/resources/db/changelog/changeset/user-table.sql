@@ -6,6 +6,5 @@ create table app_user
     username   varchar(50) unique  not null,
     password   varchar(256)        not null,
     email      varchar(100) unique not null,
-    role       varchar(20)         not null,
-    community_user_id  integer not null    references community_user (user_id)
+    role       varchar(20)         not null
 );
