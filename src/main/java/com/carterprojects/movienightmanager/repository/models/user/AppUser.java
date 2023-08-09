@@ -1,5 +1,6 @@
 package com.carterprojects.movienightmanager.repository.models.user;
 
+import com.carterprojects.movienightmanager.repository.models.CommunityUser;
 import com.carterprojects.movienightmanager.repository.models.Nomination;
 import com.carterprojects.movienightmanager.repository.models.NominationLike;
 import lombok.AllArgsConstructor;
@@ -46,6 +47,9 @@ public class AppUser implements UserDetails {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     List<NominationLike> nominationLikes;
+
+    @OneToMany(mappedBy = "user")
+    List<CommunityUser> communityUsers;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

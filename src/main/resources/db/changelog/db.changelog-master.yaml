@@ -9,3 +9,7 @@ databaseChangeLog:
       file: db/changelog/changeset/nomination-like-table.sql
   - include:
       file: db/changelog/changeset/token-table.sql
+  - include:
+      file: db/changelog/changeset/community-table.sql
+  - include:
+      file: db/changelog/changeset/community-user-table.sql
