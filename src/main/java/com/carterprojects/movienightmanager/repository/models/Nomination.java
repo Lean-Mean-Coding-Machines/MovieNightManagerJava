@@ -27,6 +27,8 @@ public class Nomination {
 
     String posterPath;
 
+    String movieOverview;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "movie_night_segment_id", nullable = false)
     MovieNightSegment movieNightSegment;

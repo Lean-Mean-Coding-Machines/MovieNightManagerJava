@@ -11,4 +11,5 @@ public class NominationRequest {
     String watchDate;
     Integer userId;
     String posterPath;
+    String overview; 
 }
