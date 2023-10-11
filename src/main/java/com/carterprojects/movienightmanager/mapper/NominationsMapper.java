@@ -16,6 +16,7 @@ public class NominationsMapper {
                 .chosen(nomination.getChosen())
                 .submittedBy(nomination.getUser().getUsername())
                 .posterPath(nomination.getPosterPath())
+                .movieOverview(nomination.getMovieOverview())
                 .build();
     }
 
@@ -25,6 +26,7 @@ public class NominationsMapper {
         nomWithLikes.setChosen(nomination.getChosen());
         nomWithLikes.setMovieTitle(nomination.getMovieTitle());
         nomWithLikes.setPosterPath(nomination.getPosterPath());
+        nomWithLikes.setMovieOverview(nomination.getMovieOverview());
         nomWithLikes.setSubmittedBy(nomination.getUser().getUsername());
         nomWithLikes.setNominationLikes(
                 nomination.getNominationLikes()

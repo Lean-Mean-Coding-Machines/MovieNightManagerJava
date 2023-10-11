@@ -19,7 +19,7 @@ public class NominationDto {
     Boolean chosen;
     String submittedBy;
     String posterPath;
-
+    String movieOverview;
     @Data
     @NoArgsConstructor
     @EqualsAndHashCode(callSuper=false)
