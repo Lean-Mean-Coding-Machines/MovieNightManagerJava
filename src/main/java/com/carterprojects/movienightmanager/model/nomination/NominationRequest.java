@@ -12,9 +12,5 @@ public class NominationRequest {
     Integer userId;
     String posterPath;
     String overview;
-    String imdbRating;
-    String awards;
-    String genre;
-    String releaseYear;
-    String rottenTomatoesScore; 
+    String releaseDate;
 }

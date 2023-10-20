@@ -15,11 +15,7 @@ public class NominationsMapper {
                 .submittedBy(nomination.getUser().getUsername())
                 .posterPath(nomination.getPosterPath())
                 .movieOverview(nomination.getMovieOverview())
-                .imdbRating(nomination.getImdbRating())
-                .awards(nomination.getAwards())
-                .genre(nomination.getGenre())
-                .releaseYear(nomination.getReleaseYear())
-                .rottenTomatoesScore(nomination.getRottenTomatoesScore())
+                .releaseDate(nomination.getReleaseDate())
                 .build();
     }
 
@@ -30,11 +26,7 @@ public class NominationsMapper {
         nomWithLikes.setMovieTitle(nomination.getMovieTitle());
         nomWithLikes.setPosterPath(nomination.getPosterPath());
         nomWithLikes.setMovieOverview(nomination.getMovieOverview());
-        nomWithLikes.setImdbRating(nomination.getImdbRating());
-        nomWithLikes.setAwards(nomination.getAwards());
-        nomWithLikes.setGenre(nomination.getGenre());
-        nomWithLikes.setReleaseYear(nomination.getReleaseYear());
-        nomWithLikes.setRottenTomatoesScore(nomination.getRottenTomatoesScore());
+        nomWithLikes.setReleaseDate(nomination.getReleaseDate());
         nomWithLikes.setSubmittedBy(nomination.getUser().getUsername());
         nomWithLikes.setNominationLikes(
                 nomination.getNominationLikes()

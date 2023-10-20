@@ -20,11 +20,7 @@ public class NominationDto {
     String submittedBy;
     String posterPath;
     String movieOverview;
-    String imdbRating;
-    String awards;
-    String genre;
-    String releaseYear;
-    String rottenTomatoesScore;
+    String releaseDate;
     @Data
     @NoArgsConstructor
     @EqualsAndHashCode(callSuper=false)

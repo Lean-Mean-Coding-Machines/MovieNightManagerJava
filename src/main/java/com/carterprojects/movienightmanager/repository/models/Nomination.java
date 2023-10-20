@@ -29,15 +29,7 @@ public class Nomination {
 
     String movieOverview;
 
-    String imdbRating;
-
-    String awards;
-
-    String genre;
-
-    String releaseYear;
-
-    String rottenTomatoesScore;
+    String releaseDate;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "movie_night_segment_id", nullable = false)

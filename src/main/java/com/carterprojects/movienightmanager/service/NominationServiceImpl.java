@@ -56,11 +56,7 @@ public class NominationServiceImpl implements NominationService {
                 .chosen(false)
                 .posterPath(nominationRequest.getPosterPath())
                 .movieOverview(nominationRequest.getOverview())
-                .imdbRating(nominationRequest.getImdbRating())
-                .awards(nominationRequest.getAwards())
-                .genre(nominationRequest.getGenre())
-                .releaseYear(nominationRequest.getReleaseYear())
-                .rottenTomatoesScore(nominationRequest.getRottenTomatoesScore())
+                .releaseDate(nominationRequest.getReleaseDate())
                 .movieNightSegment(currentSegment)
                 .user(user)
                 .build();
