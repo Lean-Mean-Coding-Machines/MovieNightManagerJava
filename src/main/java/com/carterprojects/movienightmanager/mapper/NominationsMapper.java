@@ -30,6 +30,11 @@ public class NominationsMapper {
         nomWithLikes.setMovieTitle(nomination.getMovieTitle());
         nomWithLikes.setPosterPath(nomination.getPosterPath());
         nomWithLikes.setMovieOverview(nomination.getMovieOverview());
+        nomWithLikes.setImdbRating(nomination.getImdbRating());
+        nomWithLikes.setAwards(nomination.getAwards());
+        nomWithLikes.setGenre(nomination.getGenre());
+        nomWithLikes.setReleaseYear(nomination.getReleaseYear());
+        nomWithLikes.setRottenTomatoesScore(nomination.getRottenTomatoesScore());
         nomWithLikes.setSubmittedBy(nomination.getUser().getUsername());
         nomWithLikes.setNominationLikes(
                 nomination.getNominationLikes()
