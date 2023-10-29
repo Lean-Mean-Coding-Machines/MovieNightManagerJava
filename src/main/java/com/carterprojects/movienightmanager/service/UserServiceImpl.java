@@ -7,7 +7,6 @@ import com.carterprojects.movienightmanager.repository.AppUserRepository;
 import com.carterprojects.movienightmanager.repository.models.user.UserRole;
 import com.carterprojects.movienightmanager.repository.models.user.AppUser;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Slf4j
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {

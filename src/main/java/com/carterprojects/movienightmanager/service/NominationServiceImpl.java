@@ -56,6 +56,7 @@ public class NominationServiceImpl implements NominationService {
                 .chosen(false)
                 .posterPath(nominationRequest.getPosterPath())
                 .movieOverview(nominationRequest.getOverview())
+                .releaseDate(nominationRequest.getReleaseDate())
                 .movieNightSegment(currentSegment)
                 .user(user)
                 .build();

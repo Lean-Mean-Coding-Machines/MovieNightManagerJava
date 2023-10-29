@@ -1,6 +1,5 @@
 package com.carterprojects.movienightmanager.controller.advice;
 
-import com.carterprojects.movienightmanager.exception.MnmAppException;
 import com.carterprojects.movienightmanager.exception.ValidationException;
 import com.carterprojects.movienightmanager.model.MnmApiResponse;
 import org.springframework.http.ResponseEntity;

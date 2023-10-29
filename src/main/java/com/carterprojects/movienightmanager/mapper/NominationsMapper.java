@@ -1,10 +1,8 @@
 package com.carterprojects.movienightmanager.mapper;
-
 import com.carterprojects.movienightmanager.model.nomination.NominationDto;
 import com.carterprojects.movienightmanager.model.nomination.NominationLikeDto;
 import com.carterprojects.movienightmanager.repository.models.Nomination;
 import com.carterprojects.movienightmanager.repository.models.NominationLike;
-
 import java.util.stream.Collectors;
 
 public class NominationsMapper {
@@ -17,6 +15,7 @@ public class NominationsMapper {
                 .submittedBy(nomination.getUser().getUsername())
                 .posterPath(nomination.getPosterPath())
                 .movieOverview(nomination.getMovieOverview())
+                .releaseDate(nomination.getReleaseDate())
                 .build();
     }
 
@@ -27,6 +26,7 @@ public class NominationsMapper {
         nomWithLikes.setMovieTitle(nomination.getMovieTitle());
         nomWithLikes.setPosterPath(nomination.getPosterPath());
         nomWithLikes.setMovieOverview(nomination.getMovieOverview());
+        nomWithLikes.setReleaseDate(nomination.getReleaseDate());
         nomWithLikes.setSubmittedBy(nomination.getUser().getUsername());
         nomWithLikes.setNominationLikes(
                 nomination.getNominationLikes()

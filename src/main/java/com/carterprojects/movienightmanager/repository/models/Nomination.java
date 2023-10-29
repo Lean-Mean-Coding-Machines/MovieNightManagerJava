@@ -29,6 +29,8 @@ public class Nomination {
 
     String movieOverview;
 
+    String releaseDate;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "movie_night_segment_id", nullable = false)
     MovieNightSegment movieNightSegment;
