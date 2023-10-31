@@ -1,8 +1,6 @@
 package com.carterprojects.movienightmanager.validators;
-
 import com.carterprojects.movienightmanager.exception.ValidationException;
 import com.carterprojects.movienightmanager.model.nomination.NominationRequest;
-
 import java.util.ArrayList;
 
 public class NominationValidator {
