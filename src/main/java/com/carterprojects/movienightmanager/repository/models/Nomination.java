@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
+
 import java.util.List;
 
 @Data
@@ -35,7 +36,7 @@ public class Nomination {
     @JoinColumn(name = "movie_night_segment_id", nullable = false)
     MovieNightSegment movieNightSegment;
 
-    @OneToMany(mappedBy = "nomination")
+    @OneToMany(mappedBy = "nomination", cascade = CascadeType.REMOVE, orphanRemoval = true)
     List<NominationLike> nominationLikes;
 
     @ManyToOne(optional = false)
