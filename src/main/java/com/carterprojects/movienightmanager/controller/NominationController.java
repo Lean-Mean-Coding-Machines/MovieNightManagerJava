@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.QueryParam;
 import java.util.stream.Collectors;
 
 @RestController
@@ -51,5 +52,16 @@ public class NominationController {
             return MnmApiResponse.failed("Couldn't create nomination. Check logs for details.");
         }
         return MnmApiResponse.created(NominationsMapper.nominationToNominationDto(newNomination));
+    }
+
+    @Authorize
+    @DeleteMapping("delete/{nominationId}")
+    public ResponseEntity<MnmApiResponse> deleteNomination(@PathVariable Integer nominationId, @QueryParam("userId") Integer userId) {
+        try {
+            nominationServiceImpl.deleteNomination(nominationId, userId);
+            return MnmApiResponse.success("Successfully deleted nomination");
+        } catch (MnmAppException ex) {
+            return MnmApiResponse.failed(ex.getMessage());
+        }
     }
 }
