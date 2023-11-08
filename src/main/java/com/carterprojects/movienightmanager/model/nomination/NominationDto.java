@@ -19,7 +19,8 @@ public class NominationDto {
     Boolean chosen;
     String submittedBy;
     String posterPath;
-
+    String movieOverview;
+    String releaseDate;
     @Data
     @NoArgsConstructor
     @EqualsAndHashCode(callSuper=false)

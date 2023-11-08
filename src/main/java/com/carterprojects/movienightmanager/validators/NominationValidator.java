@@ -1,8 +1,6 @@
 package com.carterprojects.movienightmanager.validators;
-
 import com.carterprojects.movienightmanager.exception.ValidationException;
 import com.carterprojects.movienightmanager.model.nomination.NominationRequest;
-
 import java.util.ArrayList;
 
 public class NominationValidator {
@@ -12,10 +10,6 @@ public class NominationValidator {
 
         if (request.getUserId() == null) {
             errorList.add("User id is required");
-        }
-
-        if (request.getPosterPath() == null || request.getPosterPath().isEmpty()) {
-            errorList.add("Poster path is required");
         }
 
         if (request.getMovieTitle() == null || request.getMovieTitle().isEmpty()) {

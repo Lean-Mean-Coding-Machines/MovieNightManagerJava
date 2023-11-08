@@ -41,11 +41,11 @@ public class AppUser implements UserDetails {
     String password;
 
     String email;
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+// TODO: keep nomination records instead of cascade deletion, FK issue currently
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     List<Nomination> nominations;
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+// TODO: keep like records instead of cascade deletion, FK issue currently
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     List<NominationLike> nominationLikes;
 
     @OneToMany(mappedBy = "user")
