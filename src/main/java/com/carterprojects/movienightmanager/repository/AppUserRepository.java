@@ -9,5 +9,4 @@ public interface AppUserRepository extends JpaRepository<AppUser, Integer> {
     Optional<UserDetails> findAppUserDetailsByUsername(String username);
     Optional<AppUser> findAppUserByUsername(String username);
     Optional<AppUser> findAppUserByUsernameAndPassword(String username, String password);
-    Optional<AppUser> findAppUserById(Integer id);
 }

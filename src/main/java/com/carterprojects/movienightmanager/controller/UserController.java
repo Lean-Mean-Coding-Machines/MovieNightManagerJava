@@ -84,7 +84,7 @@ public class UserController {
 
     @Authorize
     @DeleteMapping("delete/{userId}")
-    public ResponseEntity<MnmApiResponse> deleteNomination(@PathVariable Integer userId) {
+    public ResponseEntity<MnmApiResponse> deleteUser(@PathVariable Integer userId) {
         try {
             userServiceImpl.deleteUserAccount(userId);
             return MnmApiResponse.success("Successfully deleted user account");
