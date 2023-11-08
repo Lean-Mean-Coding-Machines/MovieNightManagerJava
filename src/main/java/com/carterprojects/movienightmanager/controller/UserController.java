@@ -1,5 +1,4 @@
 package com.carterprojects.movienightmanager.controller;
-
 import com.carterprojects.movienightmanager.controller.security.Authorize;
 import com.carterprojects.movienightmanager.controller.security.JwtService;
 import com.carterprojects.movienightmanager.exception.MnmAppException;
@@ -17,7 +16,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.stream.Collectors;
 
 @RestController
@@ -82,5 +80,16 @@ public class UserController {
     public ResponseEntity<MnmApiResponse> createUser(@RequestBody UserCreateRequest userCreateRequest) throws MnmAppException, ValidationException {
         UserValidator.validateUserCreate(userCreateRequest);
         return MnmApiResponse.created(userServiceImpl.createUserFromRequest(userCreateRequest));
+    }
+
+    @Authorize
+    @DeleteMapping("delete/{userId}")
+    public ResponseEntity<MnmApiResponse> deleteUser(@PathVariable Integer userId) {
+        try {
+            userServiceImpl.deleteUserAccount(userId);
+            return MnmApiResponse.success("Successfully deleted user account");
+        } catch (MnmAppException ex) {
+            return MnmApiResponse.failed(ex.getMessage());
+        }
     }
 }

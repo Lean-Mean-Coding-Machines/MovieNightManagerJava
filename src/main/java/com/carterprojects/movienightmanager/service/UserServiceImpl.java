@@ -1,5 +1,4 @@
 package com.carterprojects.movienightmanager.service;
-
 import com.carterprojects.movienightmanager.exception.MnmAppException;
 import com.carterprojects.movienightmanager.model.user.UserCreateRequest;
 import com.carterprojects.movienightmanager.model.user.UserCredentials;
@@ -7,15 +6,16 @@ import com.carterprojects.movienightmanager.repository.AppUserRepository;
 import com.carterprojects.movienightmanager.repository.models.user.UserRole;
 import com.carterprojects.movienightmanager.repository.models.user.AppUser;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -64,4 +64,27 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public Optional<AppUser> getUserById(Integer userId) {
         return appUserRepository.findById(userId);
     }
+
+    public void deleteUserAccount(Integer userId) throws MnmAppException {
+
+        var user = appUserRepository.findById(userId)
+                .orElseThrow(
+                        () -> {
+                            var errorStr = String.format(
+                                    "No user found with user id: %d ",
+                                    userId
+                            );
+                            log.error(errorStr);
+                            return new MnmAppException(errorStr);
+                        }
+                );
+
+        try {
+            appUserRepository.delete(user);
+        } catch (Exception ex) {
+            log.error("Could not delete exception", ex);
+            throw new MnmAppException("Error while deleting user account, please try again later");
+        }
+    }
+
 }
