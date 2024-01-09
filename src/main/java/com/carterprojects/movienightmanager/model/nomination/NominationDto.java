@@ -15,12 +15,14 @@ import java.util.List;
 public class NominationDto {
 
     Integer id;
+    Integer movieId;
     String movieTitle;
     Boolean chosen;
     String submittedBy;
     String posterPath;
     String movieOverview;
     String releaseDate;
+    // List<String> userLikes;
     @Data
     @NoArgsConstructor
     @EqualsAndHashCode(callSuper=false)

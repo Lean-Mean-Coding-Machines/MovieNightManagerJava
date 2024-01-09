@@ -1,14 +1,11 @@
 package com.carterprojects.movienightmanager.controller;
-
 import com.carterprojects.movienightmanager.controller.security.Authorize;
-
 import com.carterprojects.movienightmanager.model.MnmApiResponse;
 import com.carterprojects.movienightmanager.service.TmdbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.ws.rs.QueryParam;
 
 @RestController
@@ -24,5 +21,15 @@ public class TmdbController {
             return MnmApiResponse.failed("Title cannot be empty", HttpStatus.BAD_REQUEST);
         }
         return MnmApiResponse.success(tmdbServiceImpl.searchMovies(title));
+    }
+
+
+    @Authorize
+    @GetMapping("/movie/{movieId}")
+    public ResponseEntity<MnmApiResponse> searchForMovieDetailsById(@PathVariable Integer movieId) {
+        if (movieId == null) {
+            return MnmApiResponse.failed("Id cannot be empty", HttpStatus.BAD_REQUEST);
+        }
+        return MnmApiResponse.success(tmdbServiceImpl.getMovieDetails(movieId));
     }
 }

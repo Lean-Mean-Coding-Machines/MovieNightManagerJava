@@ -10,18 +10,21 @@ public class NominationsMapper {
     public static NominationDto nominationToNominationDto(Nomination nomination) {
         return NominationDto.builder()
                 .id(nomination.getId())
+                .movieId(nomination.getMovieId())
                 .movieTitle(nomination.getMovieTitle())
                 .chosen(nomination.getChosen())
                 .submittedBy(nomination.getUser().getUsername())
                 .posterPath(nomination.getPosterPath())
                 .movieOverview(nomination.getMovieOverview())
                 .releaseDate(nomination.getReleaseDate())
+                // .userLikes(nomination.getNominationLikes().stream().map(nominationLike -> nominationLike.getUser().getUsername()).collect(Collectors.toList()))
                 .build();
     }
 
     public static NominationDto.NominationWithLikesDto nominationToNominationWithLikesDto(Nomination nomination) {
         var nomWithLikes = new NominationDto.NominationWithLikesDto();
         nomWithLikes.setId(nomination.getId());
+        nomWithLikes.setMovieId(nomination.getMovieId());
         nomWithLikes.setChosen(nomination.getChosen());
         nomWithLikes.setMovieTitle(nomination.getMovieTitle());
         nomWithLikes.setPosterPath(nomination.getPosterPath());

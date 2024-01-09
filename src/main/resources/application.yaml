@@ -14,3 +14,4 @@ tmdb:
     token: eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNTkxMWY0NmE5ZTNlY2Y4NDc5ZTI4ZWViMjIzYmEyZCIsInN1YiI6IjY0YmI2MjdkYWY4NWRlMDEwMDE4ZjNhMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TCHEd3LcNvvu-VXTH588MB77W0iQDAwRHbIIVA6A3yo
     base-url: https://api.themoviedb.org/
     movie-search-url: 3/search/movie
+    movie-details-url: 3/movie/

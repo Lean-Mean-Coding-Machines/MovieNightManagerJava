@@ -1,5 +1,4 @@
 package com.carterprojects.movienightmanager.service;
-
 import com.carterprojects.movienightmanager.exception.MnmAppException;
 import com.carterprojects.movienightmanager.model.nomination.NominationRequest;
 import com.carterprojects.movienightmanager.repository.AppUserRepository;
@@ -8,7 +7,6 @@ import com.carterprojects.movienightmanager.repository.models.Nomination;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -52,6 +50,7 @@ public class NominationServiceImpl implements NominationService {
                 );
 
         var newNomination = Nomination.builder()
+                .movieId(nominationRequest.getMovieId())
                 .movieTitle(nominationRequest.getMovieTitle())
                 .chosen(false)
                 .posterPath(nominationRequest.getPosterPath())
