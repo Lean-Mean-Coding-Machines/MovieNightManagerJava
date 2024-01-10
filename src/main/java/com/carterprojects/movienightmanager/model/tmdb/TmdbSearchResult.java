@@ -16,5 +16,4 @@ public class TmdbSearchResult {
     String posterPath;
     @JsonAlias({"release_date"})
     String releaseDate;
-    String overview;
 }

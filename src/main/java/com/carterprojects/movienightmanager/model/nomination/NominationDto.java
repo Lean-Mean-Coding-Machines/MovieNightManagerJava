@@ -22,6 +22,8 @@ public class NominationDto {
     String posterPath;
     String movieOverview;
     String releaseDate;
+    Integer runtime;
+    List<String> genres;
     // List<String> userLikes;
     @Data
     @NoArgsConstructor
