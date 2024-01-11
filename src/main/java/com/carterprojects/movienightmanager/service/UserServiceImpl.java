@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     public void deleteUserAccount(Integer userId) throws MnmAppException {
 
-        var user = appUserRepository.findAppUserById(userId)
+        var user = appUserRepository.findById(userId)
                 .orElseThrow(
                         () -> {
                             var errorStr = String.format(
