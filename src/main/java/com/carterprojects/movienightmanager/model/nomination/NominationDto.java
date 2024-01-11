@@ -1,10 +1,6 @@
 package com.carterprojects.movienightmanager.model.nomination;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -24,10 +20,11 @@ public class NominationDto {
     String releaseDate;
     Integer runtime;
     List<String> genres;
+
     // List<String> userLikes;
     @Data
     @NoArgsConstructor
-    @EqualsAndHashCode(callSuper=false)
+    @EqualsAndHashCode(callSuper = false)
     public static class NominationWithLikesDto extends NominationDto {
         List<NominationLikeDto> nominationLikes;
     }

@@ -1,4 +1,5 @@
 package com.carterprojects.movienightmanager.model;
+
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ public class MnmApiResponse {
     }
 
     public static ResponseEntity<MnmApiResponse> success(Object data) {
-        return  ResponseEntity.ok(new MnmApiResponse(data, true, HttpStatus.OK, ""));
+        return ResponseEntity.ok(new MnmApiResponse(data, true, HttpStatus.OK, ""));
     }
 
     public static ResponseEntity<MnmApiResponse> created(Object data) {

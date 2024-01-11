@@ -1,4 +1,5 @@
 package com.carterprojects.movienightmanager.service;
+
 import com.carterprojects.movienightmanager.model.tmdb.TmdbMovieDetails;
 import com.carterprojects.movienightmanager.model.tmdb.TmdbResult;
 import com.carterprojects.movienightmanager.model.tmdb.TmdbSearchResult;
@@ -9,6 +10,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientException;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -46,7 +48,7 @@ public class TmdbServiceImpl implements TmdbService {
         }
     }
 
-    public TmdbMovieDetails  getMovieDetails(Integer id) {
+    public TmdbMovieDetails getMovieDetails(Integer id) {
         try {
             return tmdbClient.get()
                     .uri(uriBuilder ->

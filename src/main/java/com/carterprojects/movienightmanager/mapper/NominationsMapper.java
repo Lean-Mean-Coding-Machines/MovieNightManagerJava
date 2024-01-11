@@ -1,4 +1,5 @@
 package com.carterprojects.movienightmanager.mapper;
+
 import com.carterprojects.movienightmanager.model.nomination.NominationDto;
 import com.carterprojects.movienightmanager.model.nomination.NominationLikeDto;
 import com.carterprojects.movienightmanager.repository.models.Nomination;

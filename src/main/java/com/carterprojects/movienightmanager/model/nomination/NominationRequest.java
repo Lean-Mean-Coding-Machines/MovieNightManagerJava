@@ -1,8 +1,9 @@
 package com.carterprojects.movienightmanager.model.nomination;
-import java.util.List;
 
 import com.carterprojects.movienightmanager.repository.models.WatchType;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 public class NominationRequest {

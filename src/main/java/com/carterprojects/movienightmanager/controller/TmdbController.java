@@ -1,16 +1,22 @@
 package com.carterprojects.movienightmanager.controller;
+
 import com.carterprojects.movienightmanager.controller.security.Authorize;
 import com.carterprojects.movienightmanager.model.MnmApiResponse;
 import com.carterprojects.movienightmanager.service.TmdbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import javax.ws.rs.QueryParam;
 
 @RestController
 @RequestMapping("/v1/tmdb")
-public class TmdbController {
+public class
+TmdbController {
     @Autowired
     TmdbService tmdbServiceImpl;
 
@@ -22,7 +28,6 @@ public class TmdbController {
         }
         return MnmApiResponse.success(tmdbServiceImpl.searchMovies(title));
     }
-
 
     @Authorize
     @GetMapping("/movie/{movieId}")
