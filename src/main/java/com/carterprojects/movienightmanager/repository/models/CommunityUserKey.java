@@ -16,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Embeddable
+public
 class CommunityUserKey implements Serializable {
 
     @Column(name = "user_id")

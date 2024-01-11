@@ -1,5 +1,6 @@
 package com.carterprojects.movienightmanager.repository.models;
 
+import com.carterprojects.movienightmanager.repository.models.user.AppUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,4 +34,13 @@ public class MovieNightSegment {
 
     @OneToMany(mappedBy = "movieNightSegment")
     List<Nomination> nominations;
+
+    @ManyToOne
+    @MapsId("communityId")
+    @JoinColumn(name = "community_id")
+    Community community;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "app_user_id", referencedColumnName = "user_id", nullable = false)
+    AppUser user;
 }

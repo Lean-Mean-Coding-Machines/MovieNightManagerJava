@@ -1,6 +1,7 @@
 package com.carterprojects.movienightmanager.repository.models.user;
 
 import com.carterprojects.movienightmanager.repository.models.CommunityUser;
+import com.carterprojects.movienightmanager.repository.models.MovieNightSegment;
 import com.carterprojects.movienightmanager.repository.models.Nomination;
 import com.carterprojects.movienightmanager.repository.models.NominationLike;
 import lombok.AllArgsConstructor;
@@ -50,6 +51,9 @@ public class AppUser implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     List<CommunityUser> communityUsers;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    List<MovieNightSegment> movieNightSegments;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

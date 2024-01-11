@@ -12,8 +12,8 @@ import java.util.List;
 
 @Repository
 public interface MovieNightSegmentRepository extends CrudRepository<MovieNightSegment, Integer> {
-    @Query("select seg from MovieNightSegment seg where seg.nominationStartDate <= :date and seg.nominationLockDate >= :date")
-    Optional<MovieNightSegment> getMovieNightSegmentByDate(@Param("date") LocalDateTime date);
+    @Query("select seg from MovieNightSegment seg where seg.nominationStartDate <= :date and seg.nominationLockDate >= :date and seg.community.id = :communityId")
+    Optional<MovieNightSegment> getMovieNightSegmentByDateAndCommunityId(@Param("date") LocalDateTime date, @Param("communityId") Integer communityId);
 
     @Query("select seg from MovieNightSegment seg")
     Optional<MovieNightSegment> getMovieNightSegments();

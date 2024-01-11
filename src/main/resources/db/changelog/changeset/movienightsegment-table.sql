@@ -5,5 +5,7 @@ create table movie_night_segment
     nomination_lock_date   DATE        not null,
     chosen_watch_date      timestamp   null,
     watch_type             varchar(20) null,
-    segment_end_date       DATE        not null
+    segment_end_date       DATE        not null,
+    community_id           integer     not null references community (community_id),
+    app_user_id            integer     not null references app_user (user_id)
 );

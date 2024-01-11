@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
@@ -24,8 +26,19 @@ public class Community {
     @Column(name = "community_id")
     Integer id;
 
+    @Column(name = "name")
+    String communityName;
+
+    String timezone;
+
+    LocalDateTime createdOn;
+
+    @Column(name = "created_by")
+    String createdByUsername;
+
     @OneToMany(mappedBy = "community")
     List<CommunityUser> communityUsers;
 
-
+    @OneToMany(mappedBy = "community")
+    List<MovieNightSegment> movieNightSegments;
 }

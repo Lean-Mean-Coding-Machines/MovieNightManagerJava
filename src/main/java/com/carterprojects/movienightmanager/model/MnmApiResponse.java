@@ -21,6 +21,10 @@ public class MnmApiResponse {
         return ResponseEntity.status(HttpStatus.CREATED).body(new MnmApiResponse(data, true, HttpStatus.CREATED, ""));
     }
 
+    public static ResponseEntity<MnmApiResponse> created() {
+        return ResponseEntity.status(HttpStatus.CREATED).body(new MnmApiResponse(null, true, HttpStatus.CREATED, ""));
+    }
+
     public static ResponseEntity<MnmApiResponse> failed(String message) {
         return ResponseEntity.badRequest().body(new MnmApiResponse(null, false, HttpStatus.BAD_REQUEST, message));
     }

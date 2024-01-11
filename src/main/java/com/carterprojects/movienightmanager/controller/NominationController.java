@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.HeaderParam;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import java.util.stream.Collectors;
 
@@ -21,10 +23,10 @@ public class NominationController {
     @Autowired
     NominationService nominationServiceImpl;
 
-    @GetMapping("current")
-    public ResponseEntity<MnmApiResponse> getNominationsByCurrentMovieNightSegment() {
+    @GetMapping("segment/{segmentId}")
+    public ResponseEntity<MnmApiResponse> getNominationsByCurrentMovieNightSegment(@PathVariable Integer segmentId) {
         return MnmApiResponse.success(
-                nominationServiceImpl.getAllNominationsByCurrentSegment()
+                nominationServiceImpl.getAllNominationsBySegmentId(segmentId)
                         .stream()
                         .map(NominationsMapper::nominationToNominationWithLikesDto)
                         .collect(Collectors.toList())
@@ -55,9 +57,11 @@ public class NominationController {
 
     @Authorize
     @DeleteMapping("delete/{nominationId}")
-    public ResponseEntity<MnmApiResponse> deleteNomination(@PathVariable Integer nominationId, @QueryParam("userId") Integer userId) {
+    public ResponseEntity<MnmApiResponse> deleteNomination(@PathVariable Integer nominationId,
+                                                           @QueryParam("userId") Integer userId,
+                                                           @QueryParam("communityId") Integer communityId) {
         try {
-            nominationServiceImpl.deleteNomination(nominationId, userId);
+            nominationServiceImpl.deleteNomination(nominationId, userId, communityId);
             return MnmApiResponse.success("Successfully deleted nomination");
         } catch (MnmAppException ex) {
             return MnmApiResponse.failed(ex.getMessage());

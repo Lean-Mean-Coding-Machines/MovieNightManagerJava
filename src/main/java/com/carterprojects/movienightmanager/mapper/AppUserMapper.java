@@ -3,6 +3,7 @@ package com.carterprojects.movienightmanager.mapper;
 import com.carterprojects.movienightmanager.model.dto.AppUserDetailsDto;
 import com.carterprojects.movienightmanager.model.dto.AppUserSummaryDto;
 import com.carterprojects.movienightmanager.model.user.AuthResponse;
+import com.carterprojects.movienightmanager.repository.models.CommunityUser;
 import com.carterprojects.movienightmanager.repository.models.Nomination;
 import com.carterprojects.movienightmanager.repository.models.user.AppUser;
 
@@ -39,6 +40,12 @@ public class AppUserMapper {
                                 .stream()
                                 .filter(like -> !nominationIds.contains(like.getId()) && like.getEnabled())
                                 .map(like -> NominationsMapper.nominationToNominationDto(like.getNomination()))
+                                .collect(Collectors.toList())
+                )
+                .communities(
+                        user.getCommunityUsers()
+                                .stream()
+                                .map(communityUser -> CommunityMapper.communityToCommunitySummaryDto(communityUser.getCommunity()))
                                 .collect(Collectors.toList())
                 )
                 .build();

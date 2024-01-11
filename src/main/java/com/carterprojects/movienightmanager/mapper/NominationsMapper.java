@@ -16,6 +16,8 @@ public class NominationsMapper {
                 .posterPath(nomination.getPosterPath())
                 .movieOverview(nomination.getMovieOverview())
                 .releaseDate(nomination.getReleaseDate())
+                .likes(nomination.getNominationLikes().stream().map(nominationLike -> nominationLike.getUser().getUsername())
+                        .toList()
                 .build();
     }
 

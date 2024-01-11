@@ -21,6 +21,8 @@ public class NominationDto {
     String posterPath;
     String movieOverview;
     String releaseDate;
+    List<String> likes;
+
     @Data
     @NoArgsConstructor
     @EqualsAndHashCode(callSuper=false)
