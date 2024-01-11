@@ -10,7 +10,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ValidationExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = { ValidationException.class })
+    @ExceptionHandler(value = {ValidationException.class})
     protected ResponseEntity<MnmApiResponse> handleValidationException(Exception ex) {
         return MnmApiResponse.failed(ex.getMessage());
     }

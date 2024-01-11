@@ -1,12 +1,11 @@
 package com.carterprojects.movienightmanager.repository.models;
 
 import com.carterprojects.movienightmanager.repository.models.user.AppUser;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -22,6 +21,8 @@ public class Nomination {
     @Column(name = "nomination_id")
     Integer id;
 
+    Integer movieId;
+
     String movieTitle;
 
     Boolean chosen;
@@ -32,6 +33,10 @@ public class Nomination {
 
     String releaseDate;
 
+    Integer runtime;
+
+    String genres;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "movie_night_segment_id", nullable = false)
     MovieNightSegment movieNightSegment;
@@ -40,6 +45,6 @@ public class Nomination {
     List<NominationLike> nominationLikes;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "app_user_id",  referencedColumnName = "user_id", nullable = false)
+    @JoinColumn(name = "app_user_id", referencedColumnName = "user_id", nullable = false)
     AppUser user;
 }

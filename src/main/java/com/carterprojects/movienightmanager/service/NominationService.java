@@ -8,7 +8,10 @@ import java.util.List;
 
 public interface NominationService {
     List<Nomination> getAllNominationsByCurrentSegment();
+
     List<Nomination> getAllNominationsByUserId(Integer userID);
+
     Nomination createNominationFromRequest(NominationRequest nominationRequest) throws MnmAppException;
+
     void deleteNomination(Integer nominationId, Integer userId) throws MnmAppException;
 }

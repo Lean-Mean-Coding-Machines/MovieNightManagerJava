@@ -1,4 +1,5 @@
 package com.carterprojects.movienightmanager.controller;
+
 import com.carterprojects.movienightmanager.controller.security.Authorize;
 import com.carterprojects.movienightmanager.controller.security.JwtService;
 import com.carterprojects.movienightmanager.exception.MnmAppException;
@@ -16,6 +17,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.stream.Collectors;
 
 @RestController

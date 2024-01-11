@@ -17,5 +17,5 @@ public class AppUserSummaryDto {
     String firstName;
     String lastName;
     String username;
-    String email; 
+    String email;
 }

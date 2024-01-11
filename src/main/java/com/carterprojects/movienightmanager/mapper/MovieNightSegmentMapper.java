@@ -2,6 +2,7 @@ package com.carterprojects.movienightmanager.mapper;
 
 import com.carterprojects.movienightmanager.model.dto.MovieNightSegmentDto;
 import com.carterprojects.movienightmanager.repository.models.MovieNightSegment;
+
 import java.util.stream.Collectors;
 
 public class MovieNightSegmentMapper {

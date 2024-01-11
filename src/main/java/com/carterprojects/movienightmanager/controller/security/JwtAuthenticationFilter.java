@@ -1,6 +1,7 @@
 package com.carterprojects.movienightmanager.controller.security;
 
-import jakarta.servlet.*;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
@@ -30,7 +31,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        if(authHeader == null || !authHeader.trim().startsWith("Bearer")){
+        if (authHeader == null || !authHeader.trim().startsWith("Bearer")) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }

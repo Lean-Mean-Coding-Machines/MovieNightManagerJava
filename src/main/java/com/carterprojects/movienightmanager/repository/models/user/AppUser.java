@@ -1,14 +1,16 @@
 package com.carterprojects.movienightmanager.repository.models.user;
+
 import com.carterprojects.movienightmanager.repository.models.Nomination;
 import com.carterprojects.movienightmanager.repository.models.NominationLike;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -37,10 +39,10 @@ public class AppUser implements UserDetails {
     String password;
 
     String email;
-// TODO: keep nomination records instead of cascade deletion, FK issue currently 
+    // TODO: keep nomination records instead of cascade deletion, FK issue currently
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     List<Nomination> nominations;
-// TODO: keep like records instead of cascade deletion, FK issue currently
+    // TODO: keep like records instead of cascade deletion, FK issue currently
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     List<NominationLike> nominationLikes;
 

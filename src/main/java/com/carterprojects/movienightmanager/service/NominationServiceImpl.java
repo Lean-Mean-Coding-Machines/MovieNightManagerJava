@@ -52,11 +52,14 @@ public class NominationServiceImpl implements NominationService {
                 );
 
         var newNomination = Nomination.builder()
+                .movieId(nominationRequest.getMovieId())
                 .movieTitle(nominationRequest.getMovieTitle())
                 .chosen(false)
                 .posterPath(nominationRequest.getPosterPath())
                 .movieOverview(nominationRequest.getOverview())
                 .releaseDate(nominationRequest.getReleaseDate())
+                .genres(String.join(",", nominationRequest.getGenres()))
+                .runtime(nominationRequest.getRuntime())
                 .movieNightSegment(currentSegment)
                 .user(user)
                 .build();
@@ -68,7 +71,7 @@ public class NominationServiceImpl implements NominationService {
                         newNomination,
                         user,
                         nominationRequest.getWatchType(),
-                        LocalDateTime.parse(nominationRequest.getWatchDate())
+                        LocalDateTime.now()
                 );
 
         newNomination.setNominationLikes(List.of(nominationLike));
