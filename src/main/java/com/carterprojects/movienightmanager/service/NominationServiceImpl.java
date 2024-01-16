@@ -70,7 +70,6 @@ public class NominationServiceImpl implements NominationService {
                 nominationLikeServiceImpl.createNominationLike(
                         newNomination,
                         user,
-                        nominationRequest.getWatchType(),
                         LocalDateTime.now()
                 );
 

@@ -7,7 +7,6 @@ import com.carterprojects.movienightmanager.repository.NominationLikeRepository;
 import com.carterprojects.movienightmanager.repository.NominationRepository;
 import com.carterprojects.movienightmanager.repository.models.Nomination;
 import com.carterprojects.movienightmanager.repository.models.NominationLike;
-import com.carterprojects.movienightmanager.repository.models.WatchType;
 import com.carterprojects.movienightmanager.repository.models.user.AppUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +38,9 @@ public class NominationLikeServiceImpl implements NominationLikeService {
     }
 
     @Override
-    public NominationLike createNominationLike(Nomination nomination, AppUser user, WatchType watchType,
+    public NominationLike createNominationLike(Nomination nomination, AppUser user,
                                                LocalDateTime watchDate) {
         var nominationLike = NominationLike.builder()
-                .preferredWatchType(watchType)
                 .preferredWatchDate(watchDate)
                 .enabled(true)
                 .user(user)
@@ -70,13 +68,11 @@ public class NominationLikeServiceImpl implements NominationLikeService {
                 .map(nomLike -> {
                     nomLike.setEnabled(!nomLike.getEnabled());
                     if (nomLike.getEnabled()) {
-                        nomLike.setPreferredWatchType(likeRequest.getWatchType());
                         nomLike.setPreferredWatchDate(LocalDateTime.parse(likeRequest.getWatchDate()));
                     }
                     return nomLike;
                 })
                 .orElseGet(() -> NominationLike.builder()
-                        .preferredWatchType(likeRequest.getWatchType())
                         .preferredWatchDate(LocalDateTime.parse(likeRequest.getWatchDate()))
                         .enabled(true)
                         .user(user)

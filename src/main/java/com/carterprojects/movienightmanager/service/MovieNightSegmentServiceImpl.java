@@ -36,7 +36,6 @@ public class MovieNightSegmentServiceImpl implements MovieNightSegmentService {
                 .nominationLockDate(segmentStart.plusDays(MovieNightSegmentConstants.NOMINATION_DURATION_DAYS))
                 .segmentEndDate(segmentStart.plusDays(MovieNightSegmentConstants.SEGMENT_DURATION_DAYS))
                 .chosenWatchDate(null)
-                .watchType(null)
                 .build();
 
         return movieNightSegmentRepository.save(newSegment);

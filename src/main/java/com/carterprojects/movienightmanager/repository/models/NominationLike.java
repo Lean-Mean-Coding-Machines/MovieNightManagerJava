@@ -23,9 +23,6 @@ public class NominationLike {
 
     Boolean enabled;
 
-    @Column(name = "prefer_watch_type")
-    WatchType preferredWatchType;
-
     @Column(name = "prefer_watch_date_time")
     LocalDateTime preferredWatchDate;
 

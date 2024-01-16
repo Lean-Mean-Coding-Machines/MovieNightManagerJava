@@ -27,8 +27,6 @@ public class MovieNightSegment {
 
     LocalDateTime chosenWatchDate;
 
-    WatchType watchType;
-
     LocalDateTime segmentEndDate;
 
     @OneToMany(mappedBy = "movieNightSegment")

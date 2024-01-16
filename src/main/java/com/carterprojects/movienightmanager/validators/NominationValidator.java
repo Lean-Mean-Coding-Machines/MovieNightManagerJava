@@ -22,10 +22,6 @@ public class NominationValidator {
             errorList.add("Watch date is required");
         }
 
-        if (request.getWatchType() == null) {
-            errorList.add("Watch type is required");
-        }
-
         if (request.getSegmentId() == null) {
             errorList.add("Segment Id is required");
         }
