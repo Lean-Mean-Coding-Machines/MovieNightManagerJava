@@ -18,10 +18,6 @@ public class NominationValidator {
             errorList.add("Movie title is required");
         }
 
-        if (request.getWatchDate() == null || request.getWatchDate().isEmpty()) {
-            errorList.add("Watch date is required");
-        }
-
         if (request.getSegmentId() == null) {
             errorList.add("Segment Id is required");
         }

@@ -67,13 +67,9 @@ public class NominationLikeServiceImpl implements NominationLikeService {
         var nominationLike = nominationLikeRepository.findByNomination_IdAndUser_Id(likeRequest.getNominationId(), likeRequest.getUserId())
                 .map(nomLike -> {
                     nomLike.setEnabled(!nomLike.getEnabled());
-                    if (nomLike.getEnabled()) {
-                        nomLike.setPreferredWatchDate(LocalDateTime.parse(likeRequest.getWatchDate()));
-                    }
                     return nomLike;
                 })
                 .orElseGet(() -> NominationLike.builder()
-                        .preferredWatchDate(LocalDateTime.parse(likeRequest.getWatchDate()))
                         .enabled(true)
                         .user(user)
                         .nomination(nomination)
