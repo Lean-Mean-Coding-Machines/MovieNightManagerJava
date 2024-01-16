@@ -8,5 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface FeedbackRepository extends CrudRepository<Feedback, Integer> {
-    Optional<Feedback> getFeedback();
+    Optional<Feedback> findAllFeedback();
+
+    Optional<Feedback> findAllFeedbackByUser_Id(Integer userId);
 }
