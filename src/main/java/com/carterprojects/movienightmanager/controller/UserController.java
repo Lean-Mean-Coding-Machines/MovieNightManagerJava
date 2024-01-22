@@ -14,11 +14,16 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.CredentialsExpiredException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.stream.Collectors;
+
 
 @RestController
 @AllArgsConstructor
@@ -28,27 +33,36 @@ public class UserController {
     JwtService jwtService;
     AuthenticationManager authenticationManager;
 
-    @PostMapping("authenticate")
-    public ResponseEntity<MnmApiResponse> loginUser(@RequestBody UserCredentials creds) {
-        if (creds.getUsername() == null || creds.getPassword() == null) {
-            return MnmApiResponse.failed("Username or Password is empty");
-        }
-
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            creds.getUsername(),
-                            creds.getPassword()
-                    )
-            );
-        } catch (AuthenticationException ex) {
-            return MnmApiResponse.failed("Could not authenticate user", HttpStatus.UNAUTHORIZED);
-        }
-
-        return userServiceImpl.getUserByCredentials(creds)
-                .map(user -> MnmApiResponse.success(AppUserMapper.appUserToAuthResponse(user, jwtService.generateToken(user))))
-                .orElse(MnmApiResponse.failed("Username or Password is invalid"));
+@PostMapping("authenticate")
+public ResponseEntity<MnmApiResponse> loginUser(@RequestBody UserCredentials creds) {
+    if (creds.getUsername() == null || creds.getPassword() == null) {
+        return MnmApiResponse.failed("Username or Password is empty");
     }
+
+    try {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        creds.getUsername(),
+                        creds.getPassword()
+                )
+        );
+    } catch (BadCredentialsException e) {
+        return MnmApiResponse.failed("Invalid username or password", HttpStatus.UNAUTHORIZED);
+    } catch (LockedException e) {
+        return MnmApiResponse.failed("Account is locked. Please contact support.", HttpStatus.UNAUTHORIZED);
+    } catch (DisabledException e) {
+        return MnmApiResponse.failed("Account is disabled. Please contact support.", HttpStatus.UNAUTHORIZED);
+    } catch (CredentialsExpiredException e) {
+        return MnmApiResponse.failed("Credentials have expired. Please contact support.", HttpStatus.UNAUTHORIZED);
+    } catch (AuthenticationException e) {
+        return MnmApiResponse.failed("Could not authenticate user", HttpStatus.UNAUTHORIZED);
+    }
+
+    return userServiceImpl.getUserByCredentials(creds)
+            .map(user -> MnmApiResponse.success(AppUserMapper.appUserToAuthResponse(user, jwtService.generateToken(user))))
+            .orElse(MnmApiResponse.failed("Username or Password is invalid"));
+}
+
 
     @Authorize
     @PostMapping("token/refresh/{userId}")
