@@ -55,8 +55,6 @@ public class NominationsMapper {
                 .enabled(nominationLike.getEnabled())
                 .userId(nominationLike.getUser().getId())
                 .username(nominationLike.getUser().getUsername())
-                .preferredWatchDate(nominationLike.getPreferredWatchDate().toString())
-                .preferredWatchType(nominationLike.getPreferredWatchType().name())
                 .build();
     }
 
