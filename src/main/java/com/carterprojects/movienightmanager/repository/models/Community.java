@@ -1,18 +1,13 @@
 package com.carterprojects.movienightmanager.repository.models;
 
-import com.carterprojects.movienightmanager.repository.models.user.AppUser;
-import com.carterprojects.movienightmanager.repository.models.CommunityUser;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 import java.util.List;
-
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 
 @Data
 @Entity

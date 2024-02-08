@@ -4,7 +4,6 @@ import com.carterprojects.movienightmanager.exception.MnmAppException;
 import com.carterprojects.movienightmanager.model.dto.MovieNightSegmentRequestDto;
 import com.carterprojects.movienightmanager.repository.models.MovieNightSegment;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 

@@ -15,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -75,8 +75,8 @@ public class MovieNightSegmentServiceImpl implements MovieNightSegmentService {
                         .nominationLockDate(segmentRequest.getNominationLockDate())
                         .segmentEndDate(segmentRequest.getChosenWatchDate())
                         .chosenWatchDate(segmentRequest.getChosenWatchDate())
-                        .watchType(segmentRequest.getWatchType())
                         .community(community)
+                        .user(user)
                         .build()
         );
 

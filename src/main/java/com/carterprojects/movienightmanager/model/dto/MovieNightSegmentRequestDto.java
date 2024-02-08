@@ -1,7 +1,6 @@
 package com.carterprojects.movienightmanager.model.dto;
 
 import com.carterprojects.movienightmanager.model.nomination.NominationRequest;
-import com.carterprojects.movienightmanager.repository.models.WatchType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,7 +17,6 @@ public class MovieNightSegmentRequestDto {
     LocalDateTime nominationStartDate;
     LocalDateTime nominationLockDate;
     LocalDateTime chosenWatchDate;
-    WatchType watchType;
     Integer communityId;
     Integer userId;
     NominationRequest nomination;

@@ -1,15 +1,13 @@
 package com.carterprojects.movienightmanager.repository.models;
 
-import com.carterprojects.movienightmanager.repository.models.user.AppUser;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import jakarta.persistence.*;
-
 import java.io.Serializable;
-import java.util.List;
 
 @Data
 @Builder

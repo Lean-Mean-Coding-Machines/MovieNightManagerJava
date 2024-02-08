@@ -8,6 +8,7 @@ import com.carterprojects.movienightmanager.repository.NominationRepository;
 import com.carterprojects.movienightmanager.repository.models.Nomination;
 import com.carterprojects.movienightmanager.repository.models.NominationLike;
 import com.carterprojects.movienightmanager.repository.models.user.AppUser;
+import com.carterprojects.movienightmanager.service.NominationLikeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -47,7 +47,7 @@ public class NominationServiceImpl implements NominationService {
                         }
                 );
 
-        var currentSegment = movieNightSegmentRepository.getMovieNightSegmentByDateAndCommunityId(LocalDateTime.now(), nominationRequest.getCommunityId())
+        var currentSegment = movieNightSegmentRepository.findById(nominationRequest.getSegmentId())
                 .orElseThrow(
                         () -> {
                             log.error("Could not create nomination because segment with id: {} was not found", nominationRequest.getSegmentId());

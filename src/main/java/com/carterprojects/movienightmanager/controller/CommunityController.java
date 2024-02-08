@@ -2,22 +2,14 @@ package com.carterprojects.movienightmanager.controller;
 
 import com.carterprojects.movienightmanager.controller.security.Authorize;
 import com.carterprojects.movienightmanager.exception.MnmAppException;
-import com.carterprojects.movienightmanager.exception.ValidationException;
 import com.carterprojects.movienightmanager.mapper.CommunityMapper;
-import com.carterprojects.movienightmanager.mapper.MovieNightSegmentMapper;
 import com.carterprojects.movienightmanager.model.MnmApiResponse;
-import com.carterprojects.movienightmanager.model.dto.CommunityDto;
 import com.carterprojects.movienightmanager.model.dto.CommunityRequestDto;
 import com.carterprojects.movienightmanager.model.dto.CommunityUserRequestDto;
-import com.carterprojects.movienightmanager.model.dto.MovieNightSegmentRequestDto;
 import com.carterprojects.movienightmanager.service.CommunityService;
-import com.carterprojects.movienightmanager.service.MovieNightSegmentService;
-import com.carterprojects.movienightmanager.validators.NominationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1/community")

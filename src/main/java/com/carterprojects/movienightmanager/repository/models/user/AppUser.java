@@ -4,12 +4,11 @@ import com.carterprojects.movienightmanager.repository.models.CommunityUser;
 import com.carterprojects.movienightmanager.repository.models.MovieNightSegment;
 import com.carterprojects.movienightmanager.repository.models.Nomination;
 import com.carterprojects.movienightmanager.repository.models.NominationLike;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -50,7 +49,7 @@ public class AppUser implements UserDetails {
     List<NominationLike> nominationLikes;
 
     @OneToMany(mappedBy = "user")
-    List<CommunityUser> communityUsers;
+    List<CommunityUser> communities;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     List<MovieNightSegment> movieNightSegments;

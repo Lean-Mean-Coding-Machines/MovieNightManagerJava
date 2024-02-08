@@ -18,5 +18,4 @@ public class NominationRequest {
     String releaseDate;
     List<String> genres;
     Integer runtime;
-    Integer communityId;
 }

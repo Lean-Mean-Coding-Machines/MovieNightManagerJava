@@ -2,11 +2,12 @@ package com.carterprojects.movienightmanager.mapper;
 
 import com.carterprojects.movienightmanager.model.dto.AppUserDetailsDto;
 import com.carterprojects.movienightmanager.model.dto.AppUserSummaryDto;
+import com.carterprojects.movienightmanager.model.dto.CommunitySummaryDto;
 import com.carterprojects.movienightmanager.model.user.AuthResponse;
-import com.carterprojects.movienightmanager.repository.models.CommunityUser;
 import com.carterprojects.movienightmanager.repository.models.Nomination;
 import com.carterprojects.movienightmanager.repository.models.user.AppUser;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class AppUserMapper {
@@ -42,19 +43,22 @@ public class AppUserMapper {
                                 .map(like -> NominationsMapper.nominationToNominationDto(like.getNomination()))
                                 .collect(Collectors.toList())
                 )
-                .communities(
-                        user.getCommunityUsers()
-                                .stream()
-                                .map(communityUser -> CommunityMapper.communityToCommunitySummaryDto(communityUser.getCommunity()))
-                                .collect(Collectors.toList())
-                )
+                .communities(appUserCommunitiesToSummary(user))
                 .build();
+    }
+
+    public static List<CommunitySummaryDto> appUserCommunitiesToSummary(AppUser user) {
+        return user.getCommunities()
+                .stream()
+                .map(communityUser -> CommunityMapper.communityToCommunitySummaryDto(communityUser.getCommunity()))
+                .toList();
     }
 
     public static AuthResponse appUserToAuthResponse(AppUser user, String token) {
         return AuthResponse.builder()
                 .userId(user.getId())
                 .username(user.getUsername())
+                .communities(appUserCommunitiesToSummary(user))
                 .token(token)
                 .build();
     }

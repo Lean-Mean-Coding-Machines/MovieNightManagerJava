@@ -4,7 +4,7 @@ databaseChangeLog:
       author: Carter
       changes:
         - sqlFile:
-              path: db/changelog/changeset/community-table.sql
+            path: db/changelog/changeset/community-table.sql
         - sqlFile:
             path: db/changelog/changeset/user-table.sql
         - sqlFile:
