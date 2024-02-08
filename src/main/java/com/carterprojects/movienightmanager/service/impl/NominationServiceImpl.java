@@ -85,8 +85,8 @@ public class NominationServiceImpl implements NominationService {
         return newNomination;
     }
 
-    public void deleteNomination(Integer nominationId, Integer userId, Integer communityId) throws MnmAppException {
-        var currentSegment = movieNightSegmentRepository.getMovieNightSegmentByDateAndCommunityId(LocalDateTime.now(), communityId)
+    public void deleteNomination(Integer nominationId, Integer userId, Integer segmentId) throws MnmAppException {
+        var currentSegment = movieNightSegmentRepository.getCurrentMovieNightSegmentById(LocalDateTime.now(), segmentId)
                 .orElseThrow(
                         () -> {
                             var errorStr = "No current segment found. Cannot delete nomination from a previous segment";
@@ -95,7 +95,7 @@ public class NominationServiceImpl implements NominationService {
                         }
                 );
 
-        var nomination = nominationRepository.findByUser_IdAndIdAndMovieNightSegment_Id(userId, nominationId, currentSegment.getId())
+        var nomination = nominationRepository.findByUser_IdAndIdAndMovieNightSegment_Id(userId, nominationId, segmentId)
                 .orElseThrow(
                         () -> {
                             var errorStr = String.format(

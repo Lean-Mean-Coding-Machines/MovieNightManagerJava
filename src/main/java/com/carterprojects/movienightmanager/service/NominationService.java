@@ -13,5 +13,5 @@ public interface NominationService {
     List<Nomination> getAllNominationsByUserId(Integer userID);
     Nomination createNominationFromRequest(NominationRequest nominationRequest) throws MnmAppException;
     Nomination saveNewNomination(NominationRequest nominationRequest, MovieNightSegment segment, AppUser user);
-    void deleteNomination(Integer nominationId, Integer userId, Integer communityId) throws MnmAppException;
+    void deleteNomination(Integer nominationId, Integer userId, Integer segmentId) throws MnmAppException;
 }

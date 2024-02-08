@@ -57,9 +57,9 @@ public class NominationController {
     @DeleteMapping("delete/{nominationId}")
     public ResponseEntity<MnmApiResponse> deleteNomination(@PathVariable Integer nominationId,
                                                            @QueryParam("userId") Integer userId,
-                                                           @QueryParam("communityId") Integer communityId) {
+                                                           @QueryParam("segmentId") Integer segmentId) {
         try {
-            nominationServiceImpl.deleteNomination(nominationId, userId, communityId);
+            nominationServiceImpl.deleteNomination(nominationId, userId, segmentId);
             return MnmApiResponse.success("Successfully deleted nomination");
         } catch (MnmAppException ex) {
             return MnmApiResponse.failed(ex.getMessage());
