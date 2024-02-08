@@ -1,12 +1,12 @@
 package com.carterprojects.movienightmanager.repository.models;
 
+import jakarta.persistence.*;
 import com.carterprojects.movienightmanager.repository.models.user.AppUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,8 +27,6 @@ public class MovieNightSegment {
     LocalDateTime nominationLockDate;
 
     LocalDateTime chosenWatchDate;
-
-    WatchType watchType;
 
     LocalDateTime segmentEndDate;
 

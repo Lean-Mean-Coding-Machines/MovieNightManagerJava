@@ -60,11 +60,14 @@ public class NominationServiceImpl implements NominationService {
 
     public Nomination saveNewNomination(NominationRequest nominationRequest, MovieNightSegment segment, AppUser user) {
         var newNomination = Nomination.builder()
+                .movieId(nominationRequest.getMovieId())
                 .movieTitle(nominationRequest.getMovieTitle())
                 .chosen(false)
                 .posterPath(nominationRequest.getPosterPath())
                 .movieOverview(nominationRequest.getOverview())
                 .releaseDate(nominationRequest.getReleaseDate())
+                .genres(String.join(",", nominationRequest.getGenres()))
+                .runtime(nominationRequest.getRuntime())
                 .movieNightSegment(segment)
                 .user(user)
                 .build();
@@ -75,8 +78,7 @@ public class NominationServiceImpl implements NominationService {
                 nominationLikeServiceImpl.createNominationLike(
                         newNomination,
                         user,
-                        nominationRequest.getWatchType(),
-                        LocalDateTime.parse(nominationRequest.getWatchDate())
+                        LocalDateTime.now()
                 );
 
         newNomination.setNominationLikes(List.of(nominationLike));

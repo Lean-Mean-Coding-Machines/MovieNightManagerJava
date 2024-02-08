@@ -1,6 +1,8 @@
 package com.carterprojects.movienightmanager.validators;
+
 import com.carterprojects.movienightmanager.exception.ValidationException;
 import com.carterprojects.movienightmanager.model.nomination.NominationRequest;
+
 import java.util.ArrayList;
 
 public class NominationValidator {
@@ -14,14 +16,6 @@ public class NominationValidator {
 
         if (request.getMovieTitle() == null || request.getMovieTitle().isEmpty()) {
             errorList.add("Movie title is required");
-        }
-
-        if (request.getWatchDate() == null || request.getWatchDate().isEmpty()) {
-            errorList.add("Watch date is required");
-        }
-
-        if (request.getWatchType() == null) {
-            errorList.add("Watch type is required");
         }
 
         if (request.getSegmentId() == null) {

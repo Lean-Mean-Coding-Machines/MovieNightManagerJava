@@ -29,6 +29,9 @@ public class MovieNightSegmentController {
                 .orElse(MnmApiResponse.notFound());
     }
 
+    @GetMapping("previous/{currentID}")
+    public ResponseEntity<MnmApiResponse> getPreviousMovieNightSegments(@PathVariable Integer currentID,
+                                                                        @RequestParam(name = "numSegments", defaultValue = "3") Integer numSegments) {
     @GetMapping("previous/{currentId}")
     public ResponseEntity<MnmApiResponse> getPreviousMovieNightSegments(@PathVariable Integer currentId,
                                                         @RequestParam(name = "numSegments", defaultValue = "3") Integer numSegments) {

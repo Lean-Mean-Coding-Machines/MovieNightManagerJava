@@ -1,11 +1,12 @@
 package com.carterprojects.movienightmanager.service.impl;
+
 import com.carterprojects.movienightmanager.exception.MnmAppException;
 import com.carterprojects.movienightmanager.model.user.UserCreateRequest;
 import com.carterprojects.movienightmanager.model.user.UserCredentials;
 import com.carterprojects.movienightmanager.repository.AppUserRepository;
-import com.carterprojects.movienightmanager.repository.models.user.UserRole;
 import com.carterprojects.movienightmanager.repository.models.user.AppUser;
 import com.carterprojects.movienightmanager.service.UserService;
+import com.carterprojects.movienightmanager.repository.models.user.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
