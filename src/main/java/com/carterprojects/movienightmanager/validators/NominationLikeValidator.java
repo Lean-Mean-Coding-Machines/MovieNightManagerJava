@@ -14,14 +14,6 @@ public class NominationLikeValidator {
             errorList.add("User id is required");
         }
 
-        if (request.getWatchDate() == null || request.getWatchDate().isEmpty()) {
-            errorList.add("Watch date is required");
-        }
-
-        if (request.getWatchType() == null) {
-            errorList.add("Watch type is required");
-        }
-
         if (request.getNominationId() == null) {
             errorList.add("Nomination Id is required");
         }
