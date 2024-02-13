@@ -25,6 +25,17 @@ public class CommunityController {
                 .orElse(MnmApiResponse.notFound());
     }
 
+    @GetMapping("/summary/user/{userId}")
+    public ResponseEntity<MnmApiResponse> getCommunitySummariesByUser(@PathVariable Integer userId) {
+        return MnmApiResponse.success(
+                communityServiceImpl
+                        .getCommunitiesByUserId(userId)
+                        .stream()
+                        .map(CommunityMapper::communityToCommunitySummaryDto)
+                        .toList()
+        );
+    }
+
     @Authorize
     @PostMapping("create")
     public ResponseEntity<MnmApiResponse> createCommunity(@RequestBody CommunityRequestDto communityRequest) {

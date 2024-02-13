@@ -36,6 +36,10 @@ public class CommunityServiceImpl implements CommunityService {
         return communityRepository.findById(communityId);
     }
 
+    public List<Community> getCommunitiesByUserId(Integer userId) {
+        return communityUserRepository.findCommunityUserByUser_Id(userId).stream().map(CommunityUser::getCommunity).toList();
+    }
+
     public Community createNewCommunity(CommunityRequestDto communityRequest) throws MnmAppException {
         var user = appUserRepository.findById(communityRequest.getUserId())
                 .orElseThrow(
