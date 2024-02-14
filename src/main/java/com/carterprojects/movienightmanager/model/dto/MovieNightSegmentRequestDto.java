@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class MovieNightSegmentRequestDto {
 
-    LocalDateTime nominationStartDate;
     LocalDateTime nominationLockDate;
     LocalDateTime chosenWatchDate;
     Integer communityId;

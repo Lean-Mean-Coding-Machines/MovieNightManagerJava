@@ -57,7 +57,7 @@ public class MovieNightSegmentServiceImpl implements MovieNightSegmentService {
                         }
                 );
 
-        if (hasSegmentCollision(community, segmentRequest.getNominationStartDate())) {
+        if (hasSegmentCollision(community, LocalDateTime.now())) {
             throw new MnmAppException("Segment found with an overlapping time");
         }
 
@@ -71,7 +71,7 @@ public class MovieNightSegmentServiceImpl implements MovieNightSegmentService {
 
         var newSegment = movieNightSegmentRepository.save(
                 MovieNightSegment.builder()
-                        .nominationStartDate(segmentRequest.getNominationStartDate())
+                        .nominationStartDate(LocalDateTime.now())
                         .nominationLockDate(segmentRequest.getNominationLockDate())
                         .segmentEndDate(segmentRequest.getChosenWatchDate())
                         .chosenWatchDate(segmentRequest.getChosenWatchDate())
@@ -80,10 +80,11 @@ public class MovieNightSegmentServiceImpl implements MovieNightSegmentService {
                         .build()
         );
 
-        segmentRequest.getNomination().setSegmentId(newSegment.getId());
-
-        var newNomination = nominationServiceImpl.saveNewNomination(segmentRequest.getNomination(), newSegment, user);
-        newSegment.setNominations(List.of(newNomination));
+        if (segmentRequest.getNomination() == null) {
+            segmentRequest.getNomination().setSegmentId(newSegment.getId());
+            var newNomination = nominationServiceImpl.saveNewNomination(segmentRequest.getNomination(), newSegment, user);
+            newSegment.setNominations(List.of(newNomination));
+        }
 
         return newSegment;
     }

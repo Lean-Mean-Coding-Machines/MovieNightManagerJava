@@ -11,10 +11,8 @@ import com.carterprojects.movienightmanager.model.user.UserCredentials;
 import com.carterprojects.movienightmanager.service.UserService;
 import com.carterprojects.movienightmanager.validators.UserValidator;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.stream.Collectors;
