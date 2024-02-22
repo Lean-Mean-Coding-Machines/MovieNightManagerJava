@@ -21,4 +21,5 @@ public class AppUserDetailsDto {
     String email;
     List<NominationDto> nominations;
     List<NominationDto> nominationLikes;
+    List<CommunitySummaryDto> communities;
 }

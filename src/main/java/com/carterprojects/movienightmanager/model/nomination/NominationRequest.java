@@ -1,11 +1,13 @@
 package com.carterprojects.movienightmanager.model.nomination;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Getter
 public class NominationRequest {
+    @Setter
     Integer segmentId;
     Integer movieId;
     String movieTitle;

@@ -18,13 +18,14 @@ public class NominationDto {
     String posterPath;
     String movieOverview;
     String releaseDate;
+
     Integer runtime;
     List<String> genres;
 
     // List<String> userLikes;
     @Data
     @NoArgsConstructor
-    @EqualsAndHashCode(callSuper = false)
+    @EqualsAndHashCode(callSuper=false)
     public static class NominationWithLikesDto extends NominationDto {
         List<NominationLikeDto> nominationLikes;
     }

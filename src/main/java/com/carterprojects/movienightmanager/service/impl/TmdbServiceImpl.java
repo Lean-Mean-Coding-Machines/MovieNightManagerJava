@@ -1,8 +1,9 @@
-package com.carterprojects.movienightmanager.service;
+package com.carterprojects.movienightmanager.service.impl;
 
 import com.carterprojects.movienightmanager.model.tmdb.TmdbMovieDetails;
 import com.carterprojects.movienightmanager.model.tmdb.TmdbResult;
 import com.carterprojects.movienightmanager.model.tmdb.TmdbSearchResult;
+import com.carterprojects.movienightmanager.service.TmdbService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

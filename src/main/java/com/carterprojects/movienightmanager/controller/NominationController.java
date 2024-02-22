@@ -21,10 +21,10 @@ public class NominationController {
     @Autowired
     NominationService nominationServiceImpl;
 
-    @GetMapping("current")
-    public ResponseEntity<MnmApiResponse> getNominationsByCurrentMovieNightSegment() {
+    @GetMapping("segment/{segmentId}")
+    public ResponseEntity<MnmApiResponse> getNominationsByCurrentMovieNightSegment(@PathVariable Integer segmentId) {
         return MnmApiResponse.success(
-                nominationServiceImpl.getAllNominationsByCurrentSegment()
+                nominationServiceImpl.getAllNominationsBySegmentId(segmentId)
                         .stream()
                         .map(NominationsMapper::nominationToNominationWithLikesDto)
                         .collect(Collectors.toList())
@@ -55,9 +55,11 @@ public class NominationController {
 
     @Authorize
     @DeleteMapping("delete/{nominationId}")
-    public ResponseEntity<MnmApiResponse> deleteNomination(@PathVariable Integer nominationId, @QueryParam("userId") Integer userId) {
+    public ResponseEntity<MnmApiResponse> deleteNomination(@PathVariable Integer nominationId,
+                                                           @QueryParam("userId") Integer userId,
+                                                           @QueryParam("segmentId") Integer segmentId) {
         try {
-            nominationServiceImpl.deleteNomination(nominationId, userId);
+            nominationServiceImpl.deleteNomination(nominationId, userId, segmentId);
             return MnmApiResponse.success("Successfully deleted nomination");
         } catch (MnmAppException ex) {
             return MnmApiResponse.failed(ex.getMessage());

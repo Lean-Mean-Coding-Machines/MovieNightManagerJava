@@ -1,5 +1,7 @@
 package com.carterprojects.movienightmanager.repository.models.user;
 
+import com.carterprojects.movienightmanager.repository.models.CommunityUser;
+import com.carterprojects.movienightmanager.repository.models.MovieNightSegment;
 import com.carterprojects.movienightmanager.repository.models.Nomination;
 import com.carterprojects.movienightmanager.repository.models.NominationLike;
 import jakarta.persistence.*;
@@ -45,6 +47,12 @@ public class AppUser implements UserDetails {
     // TODO: keep like records instead of cascade deletion, FK issue currently
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     List<NominationLike> nominationLikes;
+
+    @OneToMany(mappedBy = "user")
+    List<CommunityUser> communities;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    List<MovieNightSegment> movieNightSegments;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

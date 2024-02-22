@@ -1,11 +1,19 @@
 databaseChangeLog:
-  - include:
-      file: db/changelog/changeset/user-table.sql
-  - include:
-      file: db/changelog/changeset/movienightsegment-table.sql
-  - include:
-      file: db/changelog/changeset/nomination-table.sql
-  - include:
-      file: db/changelog/changeset/nomination-like-table.sql
-  - include:
-      file: db/changelog/changeset/token-table.sql
+  - changeSet:
+      id: 1
+      author: Carter
+      changes:
+        - sqlFile:
+            path: db/changelog/changeset/community-table.sql
+        - sqlFile:
+            path: db/changelog/changeset/user-table.sql
+        - sqlFile:
+            path: db/changelog/changeset/movienightsegment-table.sql
+        - sqlFile:
+            path: db/changelog/changeset/nomination-table.sql
+        - sqlFile:
+            path: db/changelog/changeset/nomination-like-table.sql
+        - sqlFile:
+            path: db/changelog/changeset/token-table.sql
+        - sqlFile:
+            path: db/changelog/changeset/community-user-table.sql
