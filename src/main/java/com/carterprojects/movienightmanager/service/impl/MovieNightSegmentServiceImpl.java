@@ -61,11 +61,12 @@ public class MovieNightSegmentServiceImpl implements MovieNightSegmentService {
             throw new MnmAppException("Segment found with an overlapping time");
         }
 
+
         var user = appUserRepository.findById(segmentRequest.getUserId())
                 .orElseThrow(
                         () -> {
-                            log.error("Could not create nomination because user with id: {} was not found", segmentRequest.getUserId());
-                            return new MnmAppException("Could create nomination because the user was not found");
+                            log.error("Could not create segment because user with id: {} was not found", segmentRequest.getUserId());
+                            return new MnmAppException("Could create segment because the user was not found");
                         }
                 );
 
@@ -80,9 +81,10 @@ public class MovieNightSegmentServiceImpl implements MovieNightSegmentService {
                         .build()
         );
 
-        if (segmentRequest.getNomination() == null) {
-            segmentRequest.getNomination().setSegmentId(newSegment.getId());
-            var newNomination = nominationServiceImpl.saveNewNomination(segmentRequest.getNomination(), newSegment, user);
+        if (segmentRequest.getNominationRequest()!= null) {
+            segmentRequest.getNominationRequest().setSegmentId(newSegment.getId());
+
+            var newNomination = nominationServiceImpl.saveNewNomination(segmentRequest.getNominationRequest(), newSegment, user);
             newSegment.setNominations(List.of(newNomination));
         }
 

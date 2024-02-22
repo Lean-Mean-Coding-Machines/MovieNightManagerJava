@@ -18,6 +18,6 @@ public class MovieNightSegmentRequestDto {
     LocalDateTime chosenWatchDate;
     Integer communityId;
     Integer userId;
-    NominationRequest nomination;
+    NominationRequest nominationRequest;
 
 }

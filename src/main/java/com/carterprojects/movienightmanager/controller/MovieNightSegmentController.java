@@ -42,10 +42,12 @@ public class MovieNightSegmentController {
     @PostMapping("create")
     public ResponseEntity<MnmApiResponse> createMovieNightSegment(@RequestBody MovieNightSegmentRequestDto segmentRequest) {
         try {
-            if (segmentRequest.getNomination() == null) {
-                NominationValidator.validateNominationCreate(segmentRequest.getNomination());
+            if (segmentRequest.getNominationRequest() != null) {
+                NominationValidator.validateNominationCreate(segmentRequest.getNominationRequest());
             }
+
             var newSegment = movieNightSegmentServiceImpl.createNewMovieNightSegment(segmentRequest);
+
             return MnmApiResponse.created(MovieNightSegmentMapper.segmentToSegmentDto(newSegment));
         } catch (MnmAppException | ValidationException ex) {
             return MnmApiResponse.failed(ex.getMessage());
