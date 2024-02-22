@@ -14,7 +14,7 @@ public class CommunityMapper {
                 .timezone(community.getTimezone())
                 .userIds(community.getCommunityUsers().stream().map(user -> user.getUser().getId()).collect(Collectors.toList()))
                 .createdOn(community.getCreatedOn())
-                .createByUsername(community.getCreatedByUsername())
+                .createdByUsername(community.getCreatedByUsername())
                 .build();
     }
 

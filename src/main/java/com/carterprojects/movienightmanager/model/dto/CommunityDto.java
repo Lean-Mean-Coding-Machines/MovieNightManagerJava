@@ -19,6 +19,6 @@ public class CommunityDto {
     String timezone;
     List<Integer> userIds;
     LocalDateTime createdOn;
-    String createByUsername;
+    String createdByUsername;
 
 }

@@ -45,7 +45,7 @@ public class CommunityServiceImpl implements CommunityService {
                 .orElseThrow(
                         () -> {
                             log.error("Could not create community because user with id: {} was not found", communityRequest.getUserId());
-                            return new MnmAppException("Could create nomination because the user was not found");
+                            return new MnmAppException("Could create community because the user was not found");
                         }
                 );
 
@@ -76,7 +76,7 @@ public class CommunityServiceImpl implements CommunityService {
                 .orElseThrow(
                         () -> {
                             log.error("Could not create community user because user with id: {} was not found", userId);
-                            return new MnmAppException("Could create nomination because the user was not found");
+                            return new MnmAppException("Could create community because the user was not found");
                         }
                 );
 
