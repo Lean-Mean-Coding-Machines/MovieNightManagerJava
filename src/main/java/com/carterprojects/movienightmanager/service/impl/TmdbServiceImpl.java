@@ -55,6 +55,7 @@ public class TmdbServiceImpl implements TmdbService {
                     .uri(uriBuilder ->
                             uriBuilder
                                     .path(detailsUrl + "/" + id)
+                                    .queryParam("append_to_response", "credits")
                                     .build()
                     )
                     .retrieve()
