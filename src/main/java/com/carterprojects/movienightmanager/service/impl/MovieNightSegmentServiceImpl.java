@@ -101,4 +101,20 @@ public class MovieNightSegmentServiceImpl implements MovieNightSegmentService {
                 );
     }
 
+    public void deleteSegment(Integer id) throws MnmAppException {
+        var currentSegment = movieNightSegmentRepository.getCurrentMovieNightSegmentById(LocalDateTime.now(), id)
+                .orElseThrow(
+                        () -> {
+                            var errorStr = "No current segment found";
+                            log.error(errorStr);
+                            return new MnmAppException(errorStr);
+                        }
+                );
+        try {
+            movieNightSegmentRepository.delete(currentSegment);
+        } catch (Exception ex) {
+            log.error("Could not delete exception", ex);
+            throw new MnmAppException("Error while deleting segment, please try again later");
+        }
+    }
 }

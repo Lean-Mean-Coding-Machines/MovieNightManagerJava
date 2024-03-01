@@ -30,7 +30,7 @@ public class MovieNightSegment {
 
     LocalDateTime segmentEndDate;
 
-    @OneToMany(mappedBy = "movieNightSegment")
+    @OneToMany(mappedBy = "movieNightSegment", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Nomination> nominations;
 
     @ManyToOne(optional = false)
