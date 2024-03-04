@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.stream.Collectors;
 
-import javax.ws.rs.QueryParam;
-
 @RestController
 @RequestMapping("/v1/segment")
 public class MovieNightSegmentController {

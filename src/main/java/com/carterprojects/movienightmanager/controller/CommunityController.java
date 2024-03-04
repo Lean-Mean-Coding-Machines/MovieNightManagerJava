@@ -61,4 +61,16 @@ public class CommunityController {
             return MnmApiResponse.failed(ex.getMessage());
         }
     }
+
+    @Authorize
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<MnmApiResponse> deleteCommunity(@PathVariable("id") Integer id) {
+        try {
+            communityServiceImpl.deleteCommunity(id);
+            return MnmApiResponse.success("Successfully deleted segment");
+        } catch (MnmAppException ex) {
+            return MnmApiResponse.failed(ex.getMessage());
+        }
+    }
+
 }

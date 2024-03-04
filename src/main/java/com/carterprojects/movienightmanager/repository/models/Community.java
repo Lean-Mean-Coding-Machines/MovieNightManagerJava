@@ -31,9 +31,9 @@ public class Community {
     @Column(name = "created_by")
     String createdByUsername;
 
-    @OneToMany(mappedBy = "community")
+    @OneToMany(mappedBy = "community", cascade = CascadeType.ALL, orphanRemoval = true)
     List<CommunityUser> communityUsers;
 
-    @OneToMany(mappedBy = "community")
+    @OneToMany(mappedBy = "community", cascade = CascadeType.ALL, orphanRemoval = true)
     List<MovieNightSegment> movieNightSegments;
 }
