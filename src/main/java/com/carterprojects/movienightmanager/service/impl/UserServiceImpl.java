@@ -5,7 +5,9 @@ import com.carterprojects.movienightmanager.model.user.UserCreateRequest;
 import com.carterprojects.movienightmanager.model.user.UserCredentials;
 import com.carterprojects.movienightmanager.repository.AppUserRepository;
 import com.carterprojects.movienightmanager.repository.models.user.AppUser;
+import com.carterprojects.movienightmanager.repository.models.user.CommunityRole;
 import com.carterprojects.movienightmanager.repository.models.user.UserRole;
+import com.carterprojects.movienightmanager.service.CommunityService;
 import com.carterprojects.movienightmanager.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +25,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
     AppUserRepository appUserRepository;
+    CommunityService communityServiceImpl;
     PasswordEncoder passwordEncoder;
 
     @Override
@@ -45,7 +48,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             }
         }
 
-        var newUser =
+        var newUser = appUserRepository.save(
                 AppUser.builder()
                         .userRole(UserRole.USER)
                         .email(createRequest.getEmail())
@@ -53,9 +56,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                         .lastName(createRequest.getLastName())
                         .username(createRequest.getUsername())
                         .password(passwordEncoder.encode(createRequest.getPassword()))
-                        .build();
+                        .build()
+        );
 
-        return appUserRepository.save(newUser);
+        newUser.setCommunities(
+                createRequest.getCommunityIds().stream()
+                        .map(communityId -> {
+                            try {
+                                return communityServiceImpl.createCommunityUser(communityId, newUser, CommunityRole.MEMBER);
+                            } catch (MnmAppException e) {
+                                log.error("Could not enroll user during user creation", e);
+                                return null;
+                            }
+                        })
+                        .toList()
+        );
+
+        return newUser;
     }
 
     @Override

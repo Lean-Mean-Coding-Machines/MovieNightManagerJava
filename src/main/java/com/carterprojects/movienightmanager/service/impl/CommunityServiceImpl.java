@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,13 @@ public class CommunityServiceImpl implements CommunityService {
 
     public Optional<Community> getCommunityById(Integer communityId) {
         return communityRepository.findById(communityId);
+    }
+
+    @Override
+    public List<Community> getAllCommunities() {
+        var communities = new ArrayList<Community>();
+        communityRepository.findAll().forEach(communities::add);
+        return communities;
     }
 
     public List<Community> getCommunitiesByUserId(Integer userId) {
@@ -80,6 +88,18 @@ public class CommunityServiceImpl implements CommunityService {
                         }
                 );
 
+        var community = communityRepository.findById(communityId)
+                .orElseThrow(
+                        () -> {
+                            log.error("No community found with id: " + communityId);
+                            return new MnmAppException("No community found");
+                        }
+                );
+
+        return createCommunityUser(community, user, role);
+    }
+
+    public CommunityUser createCommunityUser(Integer communityId, AppUser user, CommunityRole role) throws MnmAppException {
         var community = communityRepository.findById(communityId)
                 .orElseThrow(
                         () -> {

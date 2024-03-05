@@ -1,7 +1,8 @@
 package com.carterprojects.movienightmanager.mapper;
 
-import com.carterprojects.movienightmanager.model.dto.AppUserDetailsDto;
-import com.carterprojects.movienightmanager.model.dto.AppUserSummaryDto;
+import com.carterprojects.movienightmanager.model.dto.user.AppUserCreatedDto;
+import com.carterprojects.movienightmanager.model.dto.user.AppUserDetailsDto;
+import com.carterprojects.movienightmanager.model.dto.user.AppUserSummaryDto;
 import com.carterprojects.movienightmanager.model.dto.CommunitySummaryDto;
 import com.carterprojects.movienightmanager.model.user.AuthResponse;
 import com.carterprojects.movienightmanager.repository.models.Nomination;
@@ -20,6 +21,10 @@ public class AppUserMapper {
                 .username(user.getUsername())
                 .email(user.getEmail())
                 .build();
+    }
+
+    public static AppUserCreatedDto newUserToCreatedDto(AppUser user) {
+        return AppUserCreatedDto.builder().username(user.getUsername()).password(user.getPassword()).build();
     }
 
     public static AppUserDetailsDto appUserDetailsToDto(AppUser user) {
