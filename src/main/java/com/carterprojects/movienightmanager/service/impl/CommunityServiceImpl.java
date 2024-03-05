@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -64,7 +65,9 @@ public class CommunityServiceImpl implements CommunityService {
                             .communityName(communityRequest.getCommunityName())
                             .timezone(communityRequest.getTimezone())
                             .createdOn(DateUtil.getDateTimeUtc())
-                            .createdByUsername(user.getUsername())
+                            .modifiedOn(DateUtil.getDateTimeUtc())
+                            .active(true)
+                            .createdBy(user)
                             .build()
             );
         } catch (Exception ex) {
@@ -124,6 +127,9 @@ public class CommunityServiceImpl implements CommunityService {
                             .community(community)
                             .user(user)
                             .communityRole(role)
+                            .enrolled(true)
+                            .createdOn(LocalDateTime.now())
+                            .modifiedOn(LocalDateTime.now())
                             .build()
             );
         } catch (Exception ex) {
