@@ -1,6 +1,5 @@
 package com.carterprojects.movienightmanager.controller.advice;
 
-import com.carterprojects.movienightmanager.exception.MnmAppException;
 import com.carterprojects.movienightmanager.exception.ValidationException;
 import com.carterprojects.movienightmanager.model.MnmApiResponse;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +10,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ValidationExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = { ValidationException.class })
+    @ExceptionHandler(value = {ValidationException.class})
     protected ResponseEntity<MnmApiResponse> handleValidationException(Exception ex) {
         return MnmApiResponse.failed(ex.getMessage());
     }

@@ -9,10 +9,10 @@ import com.carterprojects.movienightmanager.model.nomination.NominationRequest;
 import com.carterprojects.movienightmanager.service.NominationService;
 import com.carterprojects.movienightmanager.validators.NominationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.QueryParam;
 import java.util.stream.Collectors;
 
 @RestController
@@ -21,10 +21,10 @@ public class NominationController {
     @Autowired
     NominationService nominationServiceImpl;
 
-    @GetMapping("current")
-    public ResponseEntity<MnmApiResponse> getNominationsByCurrentMovieNightSegment() {
+    @GetMapping("segment/{segmentId}")
+    public ResponseEntity<MnmApiResponse> getNominationsByCurrentMovieNightSegment(@PathVariable Integer segmentId) {
         return MnmApiResponse.success(
-                nominationServiceImpl.getAllNominationsByCurrentSegment()
+                nominationServiceImpl.getAllNominationsBySegmentId(segmentId)
                         .stream()
                         .map(NominationsMapper::nominationToNominationWithLikesDto)
                         .collect(Collectors.toList())
@@ -51,5 +51,18 @@ public class NominationController {
             return MnmApiResponse.failed("Couldn't create nomination. Check logs for details.");
         }
         return MnmApiResponse.created(NominationsMapper.nominationToNominationDto(newNomination));
+    }
+
+    @Authorize
+    @DeleteMapping("delete/{nominationId}")
+    public ResponseEntity<MnmApiResponse> deleteNomination(@PathVariable Integer nominationId,
+                                                           @QueryParam("userId") Integer userId,
+                                                           @QueryParam("segmentId") Integer segmentId) {
+        try {
+            nominationServiceImpl.deleteNomination(nominationId, userId, segmentId);
+            return MnmApiResponse.success("Successfully deleted nomination");
+        } catch (MnmAppException ex) {
+            return MnmApiResponse.failed(ex.getMessage());
+        }
     }
 }

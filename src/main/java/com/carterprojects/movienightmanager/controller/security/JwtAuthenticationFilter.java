@@ -1,10 +1,10 @@
 package com.carterprojects.movienightmanager.controller.security;
 
-import jakarta.servlet.*;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,7 +31,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        if(authHeader == null || !authHeader.trim().startsWith("Bearer")){
+        if (authHeader == null || !authHeader.trim().startsWith("Bearer")) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }

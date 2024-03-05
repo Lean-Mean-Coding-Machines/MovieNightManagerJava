@@ -1,9 +1,7 @@
 package com.carterprojects.movienightmanager.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
 @Getter
@@ -17,11 +15,15 @@ public class MnmApiResponse {
     }
 
     public static ResponseEntity<MnmApiResponse> success(Object data) {
-        return  ResponseEntity.ok(new MnmApiResponse(data, true, HttpStatus.OK, ""));
+        return ResponseEntity.ok(new MnmApiResponse(data, true, HttpStatus.OK, ""));
     }
 
     public static ResponseEntity<MnmApiResponse> created(Object data) {
         return ResponseEntity.status(HttpStatus.CREATED).body(new MnmApiResponse(data, true, HttpStatus.CREATED, ""));
+    }
+
+    public static ResponseEntity<MnmApiResponse> created() {
+        return ResponseEntity.status(HttpStatus.CREATED).body(new MnmApiResponse(null, true, HttpStatus.CREATED, ""));
     }
 
     public static ResponseEntity<MnmApiResponse> failed(String message) {

@@ -1,14 +1,21 @@
 package com.carterprojects.movienightmanager.model.nomination;
 
-import com.carterprojects.movienightmanager.repository.models.WatchType;
 import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 public class NominationRequest {
+    @Setter
     Integer segmentId;
+    Integer movieId;
     String movieTitle;
-    WatchType watchType;
-    String watchDate;
+    String watchDate = "1/10/2024";
     Integer userId;
     String posterPath;
+    String overview;
+    String releaseDate;
+    List<String> genres;
+    Integer runtime;
 }

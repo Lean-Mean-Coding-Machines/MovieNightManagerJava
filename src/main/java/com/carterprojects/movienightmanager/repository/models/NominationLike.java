@@ -1,12 +1,12 @@
 package com.carterprojects.movienightmanager.repository.models;
 
 import com.carterprojects.movienightmanager.repository.models.user.AppUser;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
@@ -22,9 +22,6 @@ public class NominationLike {
     Integer id;
 
     Boolean enabled;
-
-    @Column(name = "prefer_watch_type")
-    WatchType preferredWatchType;
 
     @Column(name = "prefer_watch_date_time")
     LocalDateTime preferredWatchDate;

@@ -4,6 +4,8 @@ databaseChangeLog:
       author: Carter
       changes:
         - sqlFile:
+            path: db/changelog/changeset/community-table.sql
+        - sqlFile:
             path: db/changelog/changeset/user-table.sql
         - sqlFile:
             path: db/changelog/changeset/movienightsegment-table.sql
@@ -13,7 +15,5 @@ databaseChangeLog:
             path: db/changelog/changeset/nomination-like-table.sql
         - sqlFile:
             path: db/changelog/changeset/token-table.sql
-        - sqlFile:
-            path: db/changelog/changeset/community-table.sql
         - sqlFile:
             path: db/changelog/changeset/community-user-table.sql

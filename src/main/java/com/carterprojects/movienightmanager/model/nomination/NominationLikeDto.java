@@ -14,8 +14,6 @@ public class NominationLikeDto {
 
     Boolean enabled;
 
-    String preferredWatchType;
-
     String preferredWatchDate;
 
     Integer userId;

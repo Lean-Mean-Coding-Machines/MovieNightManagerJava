@@ -14,20 +14,8 @@ public class NominationValidator {
             errorList.add("User id is required");
         }
 
-        if (request.getPosterPath() == null || request.getPosterPath().isEmpty()) {
-            errorList.add("Poster path is required");
-        }
-
         if (request.getMovieTitle() == null || request.getMovieTitle().isEmpty()) {
             errorList.add("Movie title is required");
-        }
-
-        if (request.getWatchDate() == null || request.getWatchDate().isEmpty()) {
-            errorList.add("Watch date is required");
-        }
-
-        if (request.getWatchType() == null) {
-            errorList.add("Watch type is required");
         }
 
         if (request.getSegmentId() == null) {
