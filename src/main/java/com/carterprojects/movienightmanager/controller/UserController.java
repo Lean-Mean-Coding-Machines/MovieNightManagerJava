@@ -17,6 +17,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.stream.Collectors;
 
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.authentication.AccountExpiredException;
 
 @RestController
 @AllArgsConstructor
@@ -28,21 +33,38 @@ public class UserController {
 
     @PostMapping("authenticate")
     public ResponseEntity<MnmApiResponse> loginUser(@RequestBody UserCredentials creds) {
-        if (creds.getUsername() == null || creds.getPassword() == null) {
-            return MnmApiResponse.failed("Username or Password is empty");
+        try {
+            if (creds.getUsername() == null || creds.getPassword() == null) {
+                return MnmApiResponse.failed("Username or Password is empty");
+            }
+    
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            creds.getUsername(),
+                            creds.getPassword()
+                    )
+            );
+    
+            return userServiceImpl.getUserByCredentials(creds)
+                    .map(user -> MnmApiResponse.success(AppUserMapper.appUserToAuthResponse(user, jwtService.generateToken(user))))
+                    .orElse(MnmApiResponse.failed("Username or Password is invalid"));
+    
+        } catch (AuthenticationException ex) {
+            // Handle different authentication exceptions
+            if (ex instanceof BadCredentialsException) {
+                return MnmApiResponse.failed("Invalid username or password");
+            } else if (ex instanceof DisabledException) {
+                return MnmApiResponse.failed("User account is disabled");
+            } else if (ex instanceof LockedException) {
+                return MnmApiResponse.failed("User account is locked");
+            } else if (ex instanceof AccountExpiredException) {
+                return MnmApiResponse.failed("User account has expired");
+            } else {
+                return MnmApiResponse.failed("Authentication failed");
+            }
         }
-
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        creds.getUsername(),
-                        creds.getPassword()
-                )
-        );
-
-        return userServiceImpl.getUserByCredentials(creds)
-                .map(user -> MnmApiResponse.success(AppUserMapper.appUserToAuthResponse(user, jwtService.generateToken(user))))
-                .orElse(MnmApiResponse.failed("Username or Password is invalid"));
     }
+    
 
 
     @Authorize

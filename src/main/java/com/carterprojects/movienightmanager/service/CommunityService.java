@@ -19,5 +19,6 @@ public interface CommunityService {
     CommunityUser createCommunityUser(Integer communityId, Integer userId, CommunityRole role) throws MnmAppException;
     CommunityUser createCommunityUser(Integer communityId, AppUser user, CommunityRole role) throws MnmAppException;
     CommunityUser createCommunityUser(Community community, AppUser user, CommunityRole role) throws MnmAppException;
+    void deleteCommunity(Integer id) throws MnmAppException;
 
 }

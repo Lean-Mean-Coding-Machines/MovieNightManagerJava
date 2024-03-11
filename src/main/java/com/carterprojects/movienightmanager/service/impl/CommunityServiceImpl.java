@@ -137,4 +137,21 @@ public class CommunityServiceImpl implements CommunityService {
             throw new MnmAppException("Could not save community user. Try again soon.");
         }
     }
+
+    public void deleteCommunity(Integer id) throws MnmAppException {
+        var community = communityRepository.findById(id)
+                .orElseThrow(() -> {
+                    var errorStr = "No current community found";
+                    log.error(errorStr);
+                    return new MnmAppException(errorStr);
+                });
+    
+        try {
+            communityRepository.delete(community);
+        } catch (Exception ex) {
+            log.error("Could not delete community", ex);
+            throw new MnmAppException("Error while deleting community, please try again later");
+        }
+    }
+
 }

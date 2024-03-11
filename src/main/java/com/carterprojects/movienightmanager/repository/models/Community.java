@@ -37,9 +37,9 @@ public class Community {
     @JoinColumn(name = "app_user_id", referencedColumnName = "user_id", nullable = false)
     AppUser createdBy;
 
-    @OneToMany(mappedBy = "community")
+    @OneToMany(mappedBy = "community", cascade = CascadeType.ALL, orphanRemoval = true)
     List<CommunityUser> communityUsers;
 
-    @OneToMany(mappedBy = "community")
+    @OneToMany(mappedBy = "community", cascade = CascadeType.ALL, orphanRemoval = true)
     List<MovieNightSegment> movieNightSegments;
 }

@@ -53,4 +53,17 @@ public class MovieNightSegmentController {
             return MnmApiResponse.failed(ex.getMessage());
         }
     }
+
+    @Authorize
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<MnmApiResponse> deleteSegment(@PathVariable("id") Integer id) {
+        try {
+            movieNightSegmentServiceImpl.deleteSegment(id);
+            return MnmApiResponse.success("Successfully deleted segment");
+        } catch (MnmAppException ex) {
+            return MnmApiResponse.failed(ex.getMessage());
+        }
+    }
+
+
 }

@@ -17,4 +17,6 @@ public interface MovieNightSegmentService {
 
     MovieNightSegment createNewMovieNightSegment(MovieNightSegmentRequestDto segmentRequest) throws MnmAppException;
 
+    void deleteSegment(Integer id) throws MnmAppException;
+
 }
