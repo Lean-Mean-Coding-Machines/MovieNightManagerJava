@@ -13,6 +13,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -43,16 +44,16 @@ public class AppUser implements UserDetails {
     String email;
     // TODO: keep nomination records instead of cascade deletion, FK issue currently
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    List<Nomination> nominations;
+    List<Nomination> nominations = new ArrayList<>();
     // TODO: keep like records instead of cascade deletion, FK issue currently
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    List<NominationLike> nominationLikes;
+    List<NominationLike> nominationLikes = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<CommunityUser> communities;
+    List<CommunityUser> communities = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    List<MovieNightSegment> movieNightSegments;
+    List<MovieNightSegment> movieNightSegments = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -6,20 +6,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommunityDto {
+public class CommunityUserDto {
 
-    Integer id;
-    String name;
-    String timezone;
-    List<CommunityUserDto> userData;
-    String createdOn;
-    String createdByUsername;
-    Integer createdById;
+    Integer userId;
+    String username;
+    String role;
+    String joinedOn;
 
 }

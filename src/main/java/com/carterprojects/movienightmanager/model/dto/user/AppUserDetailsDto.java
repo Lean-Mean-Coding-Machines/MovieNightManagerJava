@@ -1,6 +1,7 @@
-package com.carterprojects.movienightmanager.model.dto;
+package com.carterprojects.movienightmanager.model.dto.user;
 
 
+import com.carterprojects.movienightmanager.model.dto.CommunitySummaryDto;
 import com.carterprojects.movienightmanager.model.nomination.NominationDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

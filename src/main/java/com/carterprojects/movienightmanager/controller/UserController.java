@@ -98,7 +98,8 @@ public class UserController {
     @PostMapping(path = "create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<MnmApiResponse> createUser(@RequestBody UserCreateRequest userCreateRequest) throws MnmAppException, ValidationException {
         UserValidator.validateUserCreate(userCreateRequest);
-        return MnmApiResponse.created(userServiceImpl.createUserFromRequest(userCreateRequest));
+        var newUser = userServiceImpl.createUserFromRequest(userCreateRequest);
+        return MnmApiResponse.created(AppUserMapper.newUserToCreatedDto(newUser));
     }
 
     @Authorize

@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 @Builder
@@ -30,4 +32,10 @@ public class CommunityUser {
     @Column(name = "community_role")
     @Enumerated(EnumType.STRING)
     CommunityRole communityRole;
+
+    boolean enrolled;
+
+    LocalDateTime createdOn;
+
+    LocalDateTime modifiedOn;
 }

@@ -1,5 +1,6 @@
 package com.carterprojects.movienightmanager.repository.models;
 
+import com.carterprojects.movienightmanager.repository.models.user.AppUser;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,8 +29,13 @@ public class Community {
 
     LocalDateTime createdOn;
 
-    @Column(name = "created_by")
-    String createdByUsername;
+    LocalDateTime modifiedOn;
+
+    Boolean active;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "app_user_id", referencedColumnName = "user_id", nullable = false)
+    AppUser createdBy;
 
     @OneToMany(mappedBy = "community", cascade = CascadeType.ALL, orphanRemoval = true)
     List<CommunityUser> communityUsers;
