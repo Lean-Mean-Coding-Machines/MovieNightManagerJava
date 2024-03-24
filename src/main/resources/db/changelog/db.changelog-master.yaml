@@ -8,6 +8,8 @@ databaseChangeLog:
         - sqlFile:
             path: db/changelog/changeset/user-table.sql
         - sqlFile:
+            path: db/changelog/changeset/feedback-table.sql
+        - sqlFile:
             path: db/changelog/changeset/movienightsegment-table.sql
         - sqlFile:
             path: db/changelog/changeset/nomination-table.sql

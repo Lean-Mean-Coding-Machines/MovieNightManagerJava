@@ -1,6 +1,6 @@
 package com.carterprojects.movienightmanager.model.feedback;
 
-import com.carterprojects.movienightmanager.repository.models.user.AppUser;
+import com.carterprojects.movienightmanager.repository.models.feedback.FeedbackType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class FeedbackDto {
     Integer id;
-    AppUser user;
+    Integer userId;
     LocalDateTime submitDate;
-    String feedbackType;
+    FeedbackType feedbackType;
     String content;
 }

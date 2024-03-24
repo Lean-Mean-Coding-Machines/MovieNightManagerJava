@@ -29,7 +29,7 @@ public class FeedbackController {
     FeedbackService feedbackServiceImpl;
 
     @Authorize
-    @GetMapping("all")
+    @GetMapping
     public ResponseEntity<MnmApiResponse> getAllFeedback() {
         return MnmApiResponse.success(
                 feedbackServiceImpl.getAllFeedback()
