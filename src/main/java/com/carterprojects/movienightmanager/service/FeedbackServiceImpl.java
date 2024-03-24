@@ -3,6 +3,7 @@ package com.carterprojects.movienightmanager.service;
 import com.carterprojects.movienightmanager.repository.models.Feedback;
 import com.carterprojects.movienightmanager.repository.FeedbackRepository;
 import com.carterprojects.movienightmanager.repository.models.user.AppUser;
+import com.carterprojects.movienightmanager.util.DateUtil;
 import com.carterprojects.movienightmanager.exception.MnmAppException;
 import com.carterprojects.movienightmanager.model.feedback.FeedbackRequest;
 import com.carterprojects.movienightmanager.repository.AppUserRepository;
@@ -10,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+// import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Slf4j
@@ -48,7 +49,7 @@ public class FeedbackServiceImpl implements FeedbackService {
                 .feedbackType(feedbackRequest.getFeedbackType())
                 .content(feedbackRequest.getContent())
                 .user(user)
-                // .submitDate(submitDate)
+                .submitDate(DateUtil.getDateTimeUtc())
                 .build();
         return feedbackRepository.save(newFeedback);
     }
