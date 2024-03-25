@@ -5,7 +5,6 @@ import com.carterprojects.movienightmanager.model.dto.CommunitySummaryDto;
 import com.carterprojects.movienightmanager.model.dto.CommunityUserDto;
 import com.carterprojects.movienightmanager.repository.models.Community;
 import com.carterprojects.movienightmanager.repository.models.CommunityUser;
-import com.carterprojects.movienightmanager.repository.models.user.AppUser;
 
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
