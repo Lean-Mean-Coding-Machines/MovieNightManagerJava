@@ -1,8 +1,9 @@
-package com.carterprojects.movienightmanager.service;
+package com.carterprojects.movienightmanager.service.impl;
 
-import com.carterprojects.movienightmanager.repository.models.Feedback;
+import com.carterprojects.movienightmanager.repository.models.feedback.Feedback;
 import com.carterprojects.movienightmanager.repository.FeedbackRepository;
 import com.carterprojects.movienightmanager.repository.models.user.AppUser;
+import com.carterprojects.movienightmanager.service.FeedbackService;
 import com.carterprojects.movienightmanager.util.DateUtil;
 import com.carterprojects.movienightmanager.exception.MnmAppException;
 import com.carterprojects.movienightmanager.model.feedback.FeedbackRequest;
@@ -12,21 +13,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 // import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.List;
 
 @Slf4j
 @Service
 public class FeedbackServiceImpl implements FeedbackService {
     @Autowired
     FeedbackRepository feedbackRepository;
+
     @Autowired
     AppUserRepository appUserRepository;
 
-    public Optional<Feedback> getAllFeedback() {
-        return feedbackRepository.findAllFeedback();
+    public List<Feedback> getAllFeedback() {
+        return feedbackRepository.findAll();
     }
 
-    public Optional<Feedback> getAllFeedbackByUserId(Integer userId) {
+    public List<Feedback> getAllFeedbackByUserId(Integer userId) {
         return feedbackRepository.findAllFeedbackByUser_Id(userId);
     }
 

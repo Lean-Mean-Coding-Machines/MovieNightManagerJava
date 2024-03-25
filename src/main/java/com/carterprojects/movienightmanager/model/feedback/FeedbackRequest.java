@@ -1,12 +1,11 @@
 package com.carterprojects.movienightmanager.model.feedback;
 
+import com.carterprojects.movienightmanager.repository.models.feedback.FeedbackType;
 import lombok.Getter;
 
 @Getter
 public class FeedbackRequest {
     Integer userId;
-    // Auto generated on submit?
-    // String submitDate;
-    String feedbackType;
+    FeedbackType feedbackType;
     String content;
 }

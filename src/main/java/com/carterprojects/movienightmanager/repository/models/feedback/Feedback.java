@@ -1,4 +1,4 @@
-package com.carterprojects.movienightmanager.repository.models;
+package com.carterprojects.movienightmanager.repository.models.feedback;
 
 import com.carterprojects.movienightmanager.repository.models.user.AppUser;
 import lombok.AllArgsConstructor;
@@ -27,7 +27,8 @@ public class Feedback {
 
     LocalDateTime submitDate;
 
-    String feedbackType;
+    @Enumerated(EnumType.STRING)
+    FeedbackType feedbackType;
 
     String content;
 }

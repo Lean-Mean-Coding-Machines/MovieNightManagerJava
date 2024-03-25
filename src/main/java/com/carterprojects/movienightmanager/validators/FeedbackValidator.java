@@ -2,7 +2,6 @@ package com.carterprojects.movienightmanager.validators;
 
 import com.carterprojects.movienightmanager.exception.ValidationException;
 import com.carterprojects.movienightmanager.model.feedback.FeedbackRequest;
-import com.carterprojects.movienightmanager.repository.models.Feedback;
 
 import java.util.ArrayList;
 
